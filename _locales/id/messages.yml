@@ -1,0 +1,1112 @@
+buttonApply:
+  description: Apply button on dialog that applies changes without closing the dialog.
+  message: Terapkan
+buttonCancel:
+  description: Cancel button on dialog.
+  message: Batal
+buttonCheckForUpdates:
+  description: Button to check a script for updates.
+  message: Periksa pembaruan
+  touched: false
+buttonClose:
+  description: Button to close window.
+  message: Tutup
+buttonConfirmInstallation:
+  description: Button to confirm installation of a script.
+  message: Konfirmasi pemasangan
+  touched: false
+buttonConfirmReinstallation:
+  description: Button to confirm re-installation when the script is already installed.
+  message: Konfirmasi pemasangan ulang
+  touched: false
+buttonDisable:
+  description: Button to disable a script.
+  message: Nonaktifkan
+buttonDownloadThemes:
+  description: Button in Violentmonkey settings for editor.
+  message: Unduh tema
+  touched: false
+buttonEdit:
+  description: Button to edit a script.
+  message: Sunting
+buttonEditClickHint:
+  description: Tooltip for the Edit button in popup.
+  message: Anda juga bisa Klik-kanan, Ctrl-klik, Wheel-klik pada nama skrip.
+buttonEmptyRecycleBin:
+  description: Button to empty the recycle bin.
+  message: Kosongkan keranjang sampah sekarang!
+buttonEnable:
+  description: Button to enable a script.
+  message: Aktifkan
+buttonExportData:
+  description: Button to open the data export dialog.
+  message: Ekspor ke zip
+buttonFilter:
+  description: Button to show filters menu.
+  message: Filter
+  touched: false
+buttonHome:
+  description: Button to open homepage.
+  message: Situs Web
+buttonImportData:
+  description: Button to choose a file for data import.
+  message: Impor dari zip
+buttonInstallFromURL:
+  description: Button to ask for URL of a user script.
+  message: Pasang dari URL
+buttonInstallOptions:
+  description: Button to show options of installation confirm page.
+  message: Opsi
+  touched: false
+buttonNew:
+  description: Button to create a new script.
+  message: Baru
+buttonOK:
+  description: OK button on dialog.
+  message: OKE
+buttonRecycleBin:
+  description: Button to list scripts in recycle bin.
+  message: Keranjang Sampah
+buttonRemove:
+  description: Button to remove a script.
+  message: Hapus
+buttonReplace:
+  description: Button to replace the current match.
+  message: Ganti
+buttonReplaceAll:
+  description: Button to replace all matches.
+  message: Semua
+buttonReset:
+  description: Button to reset to default values.
+  message: Setel ulang
+buttonResetSettings:
+  description: Button in settings page to reset all settings
+  message: Setel ulang pengaturan
+buttonRestore:
+  description: Button to restore a removed script.
+  message: Pulihkan
+buttonSave:
+  description: Button to save modifications of a script.
+  message: Simpan
+buttonSaveClose:
+  description: Button to save modifications of a script and then close the editing page.
+  message: Simpan & Tutup
+buttonSaved:
+  description: Button text after saving.
+  message: Tersimpan
+buttonShowEditorState:
+  description: Button to show the list of currently used CodeMirror options.
+  message: Tampilkan status penyunting
+buttonSupport:
+  description: Button to open support page.
+  message: Halaman dukungan
+buttonSyncPullOnce:
+  description: Button to sync scripts from remote to local for once
+  message: ''
+buttonSyncPushOnce:
+  description: Button to sync scripts from local to remote for once
+  message: ''
+buttonUndo:
+  description: Button to undo removement of a script.
+  message: Urung
+buttonUpdate:
+  description: Button to update a script.
+  message: Perbarui
+buttonUpdateAll:
+  description: Check all scripts for updates.
+  message: Periksa semua pembaruan
+  touched: false
+buttonVacuum:
+  description: Button to vacuum extension data.
+  message: Vakum basis data
+buttonVacuumed:
+  description: Message shown when data is vacuumed.
+  message: Data tervakum
+buttonVacuuming:
+  description: Message shown when data vacuum is in progress.
+  message: Melakukan vakum data...
+confirmManualUpdate:
+  description: Confirm message shown when clicking update button for a single script.
+  message: >-
+    Pembaruan otomatis dinonaktifkan untuk skrip ini! Klik OK untuk tetap
+    memperbarui.
+confirmNotSaved:
+  description: Confirm message shown when there are unsaved script modifications.
+  message: |-
+    Modifikasi belum disimpan!
+    Klik OKE untuk menghapusnya atau batal untuk tinggal.
+confirmUndoImport:
+  description: >-
+    Tooltip of the Undo button after importing a zip in settings. The same text
+    is also shown as a confirmation dialog after clicking this button.
+  message: >-
+    Mengembalikan semua perubahan yang dibuat pada basis data (mengimpor,
+    memperbarui, mengedit, menyesuaikan)
+descBlacklist:
+  description: Description for the global injection blacklist.
+  message: Daftar hitam injeksi (skrip tidak akan berjalan di situs yang cocok)
+descBlacklistNet:
+  description: Description for the global network blacklist.
+  message: >-
+    Daftar hitam jaringan (skrip tidak akan terhubung ke situs yang cocok dan
+    cookie mereka)
+descCustomCSS:
+  description: Description of custom CSS section.
+  message: >-
+    CSS khusus untuk halaman opsi dan halaman pemasangan skrip. Jika Anda tidak
+    yakin untuk apa ini, mohon jangan menyuntingnya.
+descEditorOptions:
+  description: Description of editor options JSON section.
+  message: >-
+    Opsi khusus untuk CodeMirror dan addon di dalam obyek JSON seperti
+    <code>{"indentUnit":2, "smartIndent":true}</code> meskipun demikian beberapa
+    diantaranya mungkin tidak bisa digunakan di Violentmonkey. Lihat <a
+    href="https://codemirror.net/doc/manual.html#config" target="_blank"
+    rel="noopener noreferrer">daftar lengkap</a>. Untuk menggunakan tema
+    CodeMirror khusus, tulis nama berkasnya di sini <code>"theme":
+    "3024-day"</code> dan tempel <a
+    href="https://github.com/codemirror/CodeMirror/tree/master/theme"
+    target="_blank" rel="noopener noreferrer">kode CSS tema</a> di dalam kotak
+    "Gaya Khusus" di bawah.
+descEditorOptionsGeneric:
+  description: Description of editor options in VM settings.
+  message: >-
+    Opsi Boolean dapat dialihkan dengan mengklik dua kali pada nilai: 1true1 =
+    diaktifkan, 2false2 = dinonaktifkan. Opsi numerik yang diakhiri dengan
+    3Delay3, 4Interval4, 5Rate5, 6Time6 dalam milidetik.
+descEditorOptionsVM:
+  description: Description of nonstandard editor options in VM settings.
+  message: ''
+descScriptTemplate:
+  description: Description of script template section.
+  message: >-
+    Variabel yang didukung: <{{name}}>, <{{url}}>, <{{icon}}>, <{{date}}>,
+    <{{date:format}}> dengan format yang kompatibel dengan MomentJS, contoh
+    <{{date:YYYY-MM-DD}}>.
+disabledScriptsGroup:
+  description: 'Used as "Disabled scripts: group"'
+  message: ''
+disabledScriptsHide:
+  description: 'Used as "Disabled scripts: hide"'
+  message: ''
+disabledScriptsSelector:
+  description: Label of the option.
+  message: ''
+disabledScriptsShow:
+  description: 'Used as "Disabled scripts: show"'
+  message: ''
+editHelpDocumentation:
+  description: Label in the editor help tab for the documentation link.
+  message: 'Dokumentasi tentang blok data meta skrip dan API <code>GM</code>:'
+editHelpKeyboard:
+  description: Label in the editor help tab for the keyboard shortcuts.
+  message: 'Pintasan kibor:'
+editHowToHint:
+  description: The text of the how-to link in the editor header.
+  message: Gunakan penyunting lainnya?
+editLabelMeta:
+  description: Metadata section in settings tab of script editor.
+  message: Data meta khusus
+editLabelSettings:
+  description: Settings section in settings tab of script editor.
+  message: Pengaturan skrip
+editLongLine:
+  description: Shown in the editor in lines that were cut due to being too long
+  message: Baris terlalu panjang
+editLongLineTooltip:
+  description: Tooltip shown in the editor in lines that were cut due to being too long
+  message: >-
+    Baris ini terlalu panjang, teks diperpendek untuk menghindari penurunan
+    performa saat menyunting.
+
+    Anda bisa mengatur batasannya di dalam pengaturan lanjutan, contoh:
+    "maxDisplayLength": 20000
+editNavCode:
+  description: Label of code tab in script editor.
+  message: Kode
+editNavSettings:
+  description: Label of settings tab in script editor.
+  message: Pengaturan
+editNavValues:
+  description: Label of values tab in script editor.
+  message: Nilai
+editValueAll:
+  description: Button to show/edit the entire script value storage.
+  message: Semua
+  touched: false
+editValueAllHint:
+  description: Tooltip for the 'all' button.
+  message: Tampilkan/sunting keseluruhan penyimpanan nilai skrip
+extDescription:
+  description: Description for this extension, will be displayed in web store
+  message: Pengelola userscript sumber terbuka yang mendukung banyak peramban
+extName:
+  description: Name of this extension.
+  message: Violentmonkey
+failureReasonBlacklisted:
+  description: Shown for blacklisted URLs (in the extension icon tooltip, in the popup)
+  message: Dalam daftar hitam di pengaturan Violentmonkey
+failureReasonNoninjectable:
+  description: >-
+    Shown for URLs that cannot be processed (same places as
+    failureBlacklistedUrl)
+  message: |-
+    Violentmonkey tidak bisa menjalankan userscript di halaman ini
+    (contoh: UI peramban atau ekstensi)
+failureReasonRestarted:
+  description: Shown in the popup.
+  message: >-
+    Violentmonkey telah dimulai ulang. Silakan muat ulang tab untuk menjalankan
+    skrip.
+fileInstallBlocked:
+  description: Text in the installer when a local file is dropped into the browser window.
+  message: ''
+filterAlphabeticalOrder:
+  description: Label for option to sort scripts in alphabetical order.
+  message: urutan abjad
+filterExecutionOrder:
+  description: Label for option to sort scripts in execution order.
+  message: urutan eksekusi
+filterLastUpdateOrder:
+  description: Label for option to sort scripts by last update time.
+  message: terakhir diperbarui
+filterLastVisitOrder:
+  description: >-
+    Label for option to sort scripts by the last time the user visited any site
+    targeted by this script.
+  message: ''
+filterLastVisitOrderTooltip:
+  description: Tooltip for option to sort scripts.
+  message: ''
+filterScopeAll:
+  description: Option in dashboard's search scope filter.
+  message: Semua
+  touched: false
+filterScopeCode:
+  description: Option in dashboard's search scope filter.
+  message: Kode
+  touched: false
+filterScopeName:
+  description: Option in dashboard's search scope filter.
+  message: Nama
+  touched: false
+filterSize:
+  description: Label for option to sort scripts by size.
+  message: ukuran
+genericError:
+  description: Label for generic error.
+  message: Galat
+genericOff:
+  description: To indicate something is turned off or disabled, similar to "no".
+  message: nonaktif
+genericOn:
+  description: To indicate something is turned on or enabled, similar to "yes".
+  message: aktif
+genericUseGlobal:
+  description: To indicate some per-script option will use its analog in global settings.
+  message: gunakan pengaturan global
+hashPatternWarning:
+  description: Warning shown in the editor, $1 is the pattern(s).
+  message: ''
+headerRecycleBin:
+  description: Text shown in the header when scripts in recycle bin are listed.
+  message: Keranjang Sampah
+helpForLocalFile:
+  description: Label of the checkbox.
+  message: ''
+hintForBatchAction:
+  description: Hint shown next to the buttons for batch actions.
+  message: ''
+hintGrantNone:
+  description: Don't translate back-quoted terms.
+  message: ''
+hintGrantless:
+  description: >-
+    1) This is a tooltip so preserve the line breaks to ensure it's not too
+    wide. 2) Don't translate back-quoted terms like `window` or `@grant none`.
+  message: ''
+hintInputURL:
+  description: Hint for a prompt box to input URL of a user script.
+  message: 'Masukkan URL:'
+hintRecycleBin:
+  description: Hint for recycle bin.
+  message: Skrip yang dihapus ditampilkan di sini dan akan disimpan selama 7 hari.
+hintUseDownloadURL:
+  description: Shown as a place holder for @updateURL when it is not assigned
+  message: Gunakan @downloadURL
+hintVacuum:
+  description: Hint for vacuuming data.
+  message: >-
+    Buang redundansi dan coba memuat ulang sumber daya yang hilang di dalam
+    cache.
+install:
+  description: Label for button to install a script.
+  message: Pasang
+installFrom:
+  description: Label for button to install script from a userscript site.
+  message: Pasang dari $1
+installOptionClose:
+  description: Option to close confirm window after installation.
+  message: Tutup setelah pemasangan
+  touched: false
+installOptionTrackTooltip:
+  description: >-
+    Tooltip in Firefox 68+ for the option to track the loading local file before
+    window is closed.
+  message: Tab sumber berkas harus tetap terbuka di Firefox 68 dan terbaru.
+labelAbout:
+  description: Label shown on top of the about page.
+  message: Tentang Violentmonkey
+  touched: false
+labelAdvanced:
+  description: Label for button to show advanced settings.
+  message: Lanjutan
+labelAllowUpdate:
+  description: Option to allow checking updates for a script.
+  message: Izinkan pembaruan
+labelAuthor:
+  description: Label of author shown in the details of a script.
+  message: 'Pembuat: '
+labelAutoReloadCurrentTab:
+  description: Option to reload current tab after a script is switched on or off from menu.
+  message: >-
+    Muat ulang tab saat ini setelah memilih mengaktif/nonaktifkan skrip dari
+    menu
+labelAutoReloadCurrentTabDisabled:
+  description: >-
+    Tooltip in menu after Violentmonkey is switched off if auto-reload is
+    disabled.
+  message: Skrip konten akan terus berjalan sampai Anda memuat ulang tab
+  touched: false
+labelAutoUpdate:
+  description: Option to allow automatically checking scripts for updates
+  message: Periksa pembaruan skrip setiap $1 hari, gunakan 0 untuk menonaktifkan
+labelBackup:
+  description: Label of the import/export section in settings.
+  message: Cadangkan
+labelBackupMaintenance:
+  description: Label of the import/export/maintenance section in settings.
+  message: Pencadangan dan Pemeliharaan
+labelBadge:
+  description: Label for option to show number on badge.
+  message: 'Ditampilkan pada lencana: '
+labelBadgeColors:
+  description: Label for option group to set badge colors.
+  message: 'Warna lencana:'
+labelBadgeNone:
+  description: Option to display nothing on badge.
+  message: tidak ada
+labelBadgeTotal:
+  description: Option to display total number of running scripts on badge.
+  message: jumlah skrip yang aktif
+labelBadgeUnique:
+  description: Option to display number of unique running scripts on badge.
+  message: jumlah skrip unik yang aktif
+labelBlacklist:
+  description: Label for global blacklist settings in security section.
+  message: Daftar hitam
+labelComment:
+  description: Label for a comment text in the script editor settings.
+  message: ''
+labelContributors:
+  description: Label for link to contributors.
+  message: Kontributor
+labelCurrentLang:
+  description: Label of current language.
+  message: 'Bahasa Saat Ini: '
+labelCustomCSS:
+  description: Label for custom CSS section.
+  message: Gaya Khusus
+labelDataExport:
+  description: Section title of data export.
+  message: Ekspor Data
+  touched: false
+labelDataImport:
+  description: Section title of data import.
+  message: Impor Data
+  touched: false
+labelDonate:
+  description: Label of link to donate page.
+  message: Donasi
+  touched: false
+labelDownloadURL:
+  description: Label of script @downloadURL in custom meta data.
+  message: 'URL Unduhan:'
+labelEditValue:
+  description: Label shown in the panel to edit a script value.
+  message: Menyunting nilai skrip
+labelEditValueAll:
+  description: Label shown in the panel to edit the entire script value storage.
+  message: Menyunting penyimpanan skrip
+labelEditor:
+  description: Label for Editor settings
+  message: Penyunting
+labelEnabledScriptsOnly:
+  description: Sub-option for autoupdate option, begins with a lowercase letter.
+  message: hanya skrip aktif
+labelExclude:
+  description: Label of @exclude rules.
+  message: Aturan @exclude
+labelExcludeMatch:
+  description: Label of @exclude-match rules.
+  message: Aturan @exclude-match
+labelExportScriptData:
+  description: Option to export script data along with scripts.
+  message: Ekspor data skrip
+labelExposeStatus:
+  description: Option in advanced settings.
+  message: 'Bagikan versi skrip terpasang pada situs katalog userscript: $1'
+labelFastFirefoxInject:
+  description: (`$1` will be shown as `page`) Option in Advanced settings.
+  message: Mode $1alternatif di Firefox
+labelFastFirefoxInjectHint:
+  description: Tooltip hint for the option in Advanced settings.
+  message: >-
+    Metode injeksi alternatif untuk skrip <document-start> sejak Firefox 59,
+    lebih cepat daripada mode default. Sama halnya dengan "Mode halaman
+    sinkron", mode ini juga meningkatkan konsumsi memori, jadi Anda mungkin
+    ingin menonaktifkannya jika skrip Anda bekerja dengan baik tanpa opsi ini.
+labelFeedback:
+  description: Label of link to feedback page.
+  message: Umpanbalik
+labelGeneral:
+  description: Label for general settings.
+  message: Umum
+labelHelpTranslate:
+  description: Label for link to localization guide in about tab
+  message: Bantu menerjemahkan
+labelHomepage:
+  description: Label for home page in about tab.
+  message: Situs Web
+labelHomepageURL:
+  description: Label of script @homepageURL in custom meta data.
+  message: 'URL Situs Web:'
+labelHttpOnlyCookie:
+  description: Option in Advanced settings to enable HTTP-only cookies for GM_cookie.
+  message: ''
+labelHttpOnlyCookieHint:
+  description: Tooltip for the HTTP-only cookie option.
+  message: ''
+labelIconURL:
+  description: Label for the input.
+  message: 'URL Ikon:'
+labelImportScriptData:
+  description: Option to import script data along with scripts.
+  message: Impor data skrip
+labelImportSettings:
+  description: Label for option to import settings from zip file.
+  message: Impor pengaturan
+labelInclude:
+  description: Label of @include rules.
+  message: Aturan @include
+labelInjectionMode:
+  description: >-
+    Label for option in advanced settings and in script settings. Don't forget
+    the space after ":" if the translated language separates words with spaces.
+  message: 'Mode injeksi: '
+labelInstall:
+  description: Shown in the title of the confirm page while trying to install a script.
+  message: Memasang skrip
+labelKeepOriginal:
+  description: Option to keep the original match or ignore rules.
+  message: Simpan yang asli
+labelLastUpdatedAt:
+  description: Label shown on last updated time.
+  message: Terakhir diperbarui pada $1
+labelLineNumber:
+  description: Label for line number jumper.
+  message: 'No. baris: '
+labelMatch:
+  description: Label of @match rules.
+  message: Aturan @match
+labelName:
+  description: Label of script name.
+  message: 'Nama:'
+labelNoFrames:
+  description: Label of script @noframes properties in custom meta data.
+  message: 'Berjalan di dalam frame:'
+labelNoName:
+  description: Text as the name of a script when no @name is assigned.
+  message: Tanpa Nama
+labelNoSearchScripts:
+  description: Message shown when no script is found in search results.
+  message: Tidak ada skrip yang ditemukan.
+labelNotifyThisUpdated:
+  description: >-
+    A per-script option in editor to enable notification when this script is
+    updated. The text follows "Allow update" checkbox option so it's like a
+    continuation of the phrase.
+  message: ', lalu beri tahu:'
+labelNotifyUpdates:
+  description: Option to show notification when script is updated.
+  message: Beri tahu pembaruan skrip
+labelNotifyUpdatesGlobal:
+  description: Option to prioritize global notification option over script's setting.
+  message: abaikan notifikasi per skrip (tab "pengaturan" di dalam penyunting)
+labelPageMenuCommands:
+  description: Checkbox item in page context menu and option to enable script commands.
+  message: ''
+labelPrivacyPolicy:
+  description: Label of link to privacy policy
+  message: Kebijakan Privasi
+labelReinstall:
+  description: >-
+    Shown in the title of the confirm page while trying to install a script
+    that's already installed.
+  message: Memasang ulang skrip
+labelRelated:
+  description: Label of related links.
+  message: 'Tautan terkait: '
+labelRemovedAt:
+  description: Label for the time when the script is removed.
+  message: Dihapus pada $1
+labelReplace:
+  description: Label for replace input in search box.
+  message: 'Ganti dengan: '
+labelRunAt:
+  description: Label of script @run-at properties in custom meta data.
+  message: 'Run-At: '
+labelRunAtDefault:
+  description: Shown when custom @run-at is not assigned.
+  message: (Bawaan)
+labelScriptOptionRequired:
+  description: Shown after some global options in settings
+  message: ''
+labelScriptOptionRequiredGlobal:
+  description: Shown after some options in a script's settings
+  message: ''
+labelScriptTemplate:
+  description: Label for custom script template.
+  message: Templat Skrip Khusus
+labelSearch:
+  description: Label for search input in search box.
+  message: 'Pencarian untuk: '
+labelSearchScript:
+  description: Placeholder for script search box.
+  message: Cari skrip...
+labelSettings:
+  description: Label shown on the top of settings page
+  message: Pengaturan
+labelShowOrder:
+  description: Label for option in dashboard -> script list
+  message: Tampilkan posisi urutan dijalankan
+labelShowVisited:
+  description: Label for option in dashboard -> script list
+  message: ''
+labelSync:
+  description: Label for sync options.
+  message: Sinkronisasi
+labelSyncAnonymous:
+  description: Label for using anonymous account.
+  message: Gunakan akun anonim
+labelSyncAuthorize:
+  description: Label for button to authorize a service.
+  message: Izinkan
+labelSyncAuthorizing:
+  description: Label for button when authorization is in progress.
+  message: Mengizinkan
+labelSyncAutomatically:
+  description: Label for option to sync automatically.
+  message: ''
+labelSyncDisabled:
+  description: Label for option to disable sync service.
+  message: Nihil
+labelSyncPassword:
+  description: Label for input to hold password.
+  message: 'Sandi: '
+labelSyncReauthorize:
+  description: Option to reauthorize sync service when expired.
+  message: ''
+  touched: false
+labelSyncRevoke:
+  description: Label for button to revoke authorization for a service.
+  message: Cabut
+labelSyncS3AccessKeyId:
+  description: Label for S3 access key ID input.
+  message: ''
+labelSyncS3Bucket:
+  description: Label for S3 bucket name input.
+  message: ''
+labelSyncS3Endpoint:
+  description: Label for custom S3-compatible endpoint URL input (leave blank for AWS).
+  message: ''
+labelSyncS3Prefix:
+  description: Label for S3 key prefix input (folder within the bucket).
+  message: ''
+labelSyncS3Region:
+  description: Label for S3 region input.
+  message: ''
+labelSyncS3SecretAccessKey:
+  description: Label for S3 secret access key input.
+  message: ''
+labelSyncScriptStatus:
+  description: Label for option to sync script status.
+  message: Status sinkronisasi skrip
+labelSyncServerUrl:
+  description: Label for input to hold server URL.
+  message: 'URL Server: '
+labelSyncService:
+  description: Label for sync service select.
+  message: Sinkronkan ke
+labelSyncUsername:
+  description: Label for input to hold username.
+  message: 'Nama pengguna: '
+labelTags:
+  description: Label for custom tags. Don't translate @tag.
+  message: ''
+labelTheme:
+  description: Label for the visual theme option.
+  message: 'Tema:'
+labelTranslator:
+  description: Label of translator.
+  message: 'Penerjemah: '
+  touched: false
+labelUpdateURL:
+  description: Label of script @updateURL in custom meta data.
+  message: 'URL Pembaruan:'
+labelViewSingleColumn:
+  description: >-
+    Label for option in dashboard script list to show the scripts in single
+    column.
+  message: Kolom tunggal
+labelViewTable:
+  description: Label for option in dashboard script list to show the scripts as a table.
+  message: Tampilan tabel
+labelWidth:
+  description: Width.
+  message: ''
+labelXhrInject:
+  description: >-
+    (`$1` will be shown as `page`) Option in Advanced settings to enable
+    synchronous injection.
+  message: Mode $1 sinkronis
+labelXhrInjectHint:
+  description: Tooltip of the `Synchronous page mode` option in Advanced settings.
+  message: >-
+    Hanya aktifkan jika Anda memiliki skrip yang perlu dijalankan sebelum
+    halaman mulai dimuat dan saat ini terlambat dijalankan. Seperti mode injeksi
+    instan di Tampermonkey, opsi ini menggunakan XHR sinkronis yang sudah usang,
+    sehingga di Chrome/Chromium Anda akan melihat peringatan di dalam konsol
+    devtool, meskipun Anda masih bisa mengabaikannya dengan aman karena pengaruh
+    buruknya masih bisa diabaikan untuk saat ini. Anda bisa menyembunyikan
+    peringatan ini memlalui klik kanan pada teks tersebut.
+labelXhrInjectNote:
+  description: Shown to the right of "synchronous page mode" in options.
+  message: (kecuali mode privat dan situs dengan kuki yang dinonaktifkan)
+lastSync:
+  description: Label for last sync timestamp.
+  message: Sinkron terakhir pada $1
+learnBlacklist:
+  description: Refers to a link to introduce blacklist patterns.
+  message: Pelajari lebih lanjut tentang pola daftar hitam.
+learnInjectionMode:
+  description: Refers to a link to introduce injection modes.
+  message: Pelajari lebih lanjut tentang mode injeksi.
+linkManageRemoteFiles:
+  description: Label for link to manage remote files.
+  message: ''
+menuCommands:
+  description: Menu item to list script commands.
+  message: Perintah script
+  touched: false
+menuDashboard:
+  description: Label for menu item to open dashboard.
+  message: Buka Dasbor
+menuExclude:
+  description: >-
+    Shown in popup menu after clicking script's "..." dropdown so try to keep
+    the label short.
+  message: Pengecualian...
+menuExcludeHint:
+  description: Shown in popup menu after clicking "Exclude..." in script's "..." dropdown.
+  message: >-
+    Tab saat ini akan otomatis dimuat ulang jika Anda mengaktifkan opsi ini di
+    dalam pengaturan umum.
+
+    Untuk menerapkan perubahan ke semua tab, silakan muat ulang secara manual.
+
+    Gunakan tab "Pengaturan" dari penyunting untuk opsi lainnya.
+menuFeedback:
+  description: >-
+    Menu item in popup to open the selected script's feedback page. Please use a
+    short word in translation to keep the menu narrow.
+  message: Umpanbalik
+menuFindScripts:
+  description: Menu item to find scripts for a site.
+  message: Temukan skrip untuk situs ini
+menuInjectionFailed:
+  description: Injection error.
+  message: Tidak bisa menginjeksi beberapa skrip.
+menuInjectionFailedFix:
+  description: Injection error fix, shown in case the default mode is "page".
+  message: Ulangi dalam mode "otomatis"
+menuMatchedDisabledScripts:
+  description: >-
+    Label for menu listing matched disabled scripts when the option to group
+    disabled scripts is selected.
+  message: Cocok skrip nonaktif
+menuMatchedFrameScripts:
+  description: Label for menu listing matching scripts in sub-frames.
+  message: Skrip hanya sub-frame
+menuMatchedScripts:
+  description: Label for menu listing matched scripts.
+  message: Skrip yang cocok
+menuNewScript:
+  description: Menu item to create a new script.
+  message: Buat skrip baru
+menuScriptDisabled:
+  description: Menu item showing the status of Violentmonkey, when disabled.
+  message: Skrip dinonaktifkan
+menuScriptEnabled:
+  description: Menu item showing the status of Violentmonkey, when enabled.
+  message: Skrip diaktifkan
+msgCheckingForUpdate:
+  description: Message shown when a script is being checked for updates by version numbers.
+  message: Memeriksa pembaruan...
+msgDateFormatInfo:
+  description: Help text of the info icon in VM settings for the export file name.
+  message: >-
+    Klik untuk membuka dokumentasi MomentJS. Token yang diizinkan: $1. Gunakan
+    [tanda kurung siku] untuk melindungi teks harfiah.
+msgErrorFetchingResource:
+  description: >-
+    Message shown when Violentmonkey fails fetching a resource/require/icon of
+    the script.
+  message: Kesalahan saat mengambil sumber daya!
+msgErrorFetchingScript:
+  description: Message shown when Violentmonkey fails fetching a new version of the script.
+  message: Kesalahan saat mengambil skrip!
+msgErrorFetchingUpdateInfo:
+  description: Message shown when Violentmonkey fails fetching version data of the script.
+  message: Gagal mengambil informasi pembaruan.
+msgErrorLoadingData:
+  description: >-
+    Message shown on confirm page when the script to be installed cannot be
+    loaded.
+  message: Kesalahan memuat data skrip.
+msgErrorLoadingDependency:
+  description: Message shown when not all requirements are loaded successfully.
+  message: Kesalahan saat memuat dependensi.
+msgImported:
+  description: >-
+    Message shown after import. There is an argument referring to the count of
+    scripts imported.
+  message: $1 item diimpor.
+msgIncognitoChanges:
+  description: >-
+    Message shown in popup and installation tab when opened in an incognito
+    window.
+  message: >-
+    Perubahan yang Anda buat dalam mode penjelajahan Pribadi juga diterapkan ke
+    profil utama Anda.
+msgInstalled:
+  description: Message shown when a script is installed.
+  message: Skrip telah terpasang.
+msgInvalidScript:
+  description: Message shown when script is invalid.
+  message: Skrip tidak valid!
+msgLoadedData:
+  description: >-
+    Message shown in the confirm page when a javascript file to be installed is
+    loaded.
+  message: Data skrip telah dimuat.
+  touched: false
+msgLoading:
+  description: Message shown in the options page before script list is loaded.
+  message: Memuat ...
+  touched: false
+msgLoadingData:
+  description: Message shown on confirm page when the script to be installed is loading.
+  message: Memuat data skrip...
+msgLoadingDependency:
+  description: Message shown on confirm page when the requirements are being downloaded.
+  message: Memuat dependensi... ($1/$2)
+msgMissingResources:
+  description: >-
+    Notification title shown for a missing @require or other resource when
+    running such scripts.
+  message: Kehilangan sumber daya yang dibutuhkan.
+msgNamespaceConflict:
+  description: >-
+    Message shown when namespace of the new script conflicts with an existent
+    one.
+  message: >-
+    Skrip ini sudah terpasang.
+
+    Silakan gunakan @name dan @namespace yang berbeda di sini atau sunting skrip
+    tersebut.
+msgNamespaceConflictRestore:
+  description: >-
+    Message shown when namespace of the script to restore from recycle bin
+    conflicts with an existent one.
+  message: Skrip dengan @name dan @namespace yang sama sudah terpasang.
+msgNewVersion:
+  description: >-
+    Message shown when a new version of script is found by @updateURL, but no
+    @downloadURL is provided.
+  message: Tersedia versi baru.
+msgNoUpdate:
+  description: Message shown when there is no new version of a script.
+  message: Pembaruan tidak tersedia.
+msgOpenUpdateErrors:
+  description: Shown at the beginning of a notification (Chrome) or in its title (Firefox).
+  message: Galat saat memperbarui skrip. Klik untuk membuka.
+msgReinstallScripts:
+  description: >-
+    Notification body shown for a missing @require or other resource when
+    running such scripts.
+  message: 'Harap simpan atau pasang ulang skrip ini:'
+msgSameCode:
+  description: Shown inside the title when re-installing a script that's already installed.
+  message: (kode sama)
+msgSavedBlacklist:
+  description: Message shown when blacklist are saved.
+  message: Daftar hitam diperbarui.
+  touched: false
+msgSavedCustomCSS:
+  description: Message shown when custom CSS is saved.
+  message: Gaya khusus diperbarui.
+  touched: false
+msgSavedEditorOptions:
+  description: Message shown when editor options are saved.
+  message: Opsi penyunting diperbarui.
+  touched: false
+msgSavedScriptTemplate:
+  description: Message shown when custom script template is saved.
+  message: Templat skrip khusus diperbarui.
+  touched: false
+msgScriptUpdated:
+  description: Notification message for script updates.
+  message: Skrip [$1] diperbarui!
+msgShowHide:
+  description: Tooltip or text shown on a toggle that shows/hides stuff
+  message: Tampilkan/Sembunyikan
+msgSyncError:
+  description: Message shown when sync failed.
+  message: Kesalahan sinkron!
+msgSyncInit:
+  description: Message shown when sync service is initializing.
+  message: Sedang memulai...
+msgSyncInitError:
+  description: Message shown when sync fails in initialization.
+  message: Kesalahan saat memulai!
+msgSyncNoAuthYet:
+  description: Message shown when the selected sync provider hasn't been authorized yet.
+  message: Belum diotorisasi.
+msgSyncReady:
+  description: Message shown when sync will start soon.
+  message: Sinkronisasi akan segera dimulai...
+  touched: false
+msgSyncing:
+  description: Message shown when sync is in progress.
+  message: Dalam proses sinkronisasi...
+msgSyntaxError:
+  description: Shown in popup when a script didn't run and we don't know the exact reason.
+  message: Galat sintaksis?
+msgTardyMatch:
+  description: Shown in popup for scripts that missed their chance to run.
+  message: ''
+msgUpdated:
+  description: Message shown when a script is updated/reinstalled.
+  message: Skrip diperbarui.
+msgUpdating:
+  description: Message shown when a new version of script is being fetched.
+  message: Memperbarui...
+noValues:
+  description: Label shown when there is no value for current script.
+  message: Tidak ada nilai yang disimpan
+optionEditorWindow:
+  description: Label for the option in settings
+  message: Buka penyunting dari popup di jendela baru
+optionEditorWindowHint:
+  description: >-
+    Tooltip for optionEditorWindow in case the browser doesn't support
+    onBoundsChanged
+  message: >-
+    Posisi jendela penyunting hanya akan diingat pada saat mengubah ukuran atau
+    menyimpan
+optionEditorWindowSimple:
+  description: Label for the editor window type
+  message: Sembunyikan omnibox
+optionPopup:
+  description: Label of the popup menu section in settings.
+  message: Ikon dan menu popup
+optionPopupEnabledFirst:
+  description: Option to show enabled scripts first in popup.
+  message: Aktif di atas
+optionPopupGroupDisabled:
+  description: Option to group disabled scripts in popup.
+  message: Grup skrip nonaktif
+  touched: false
+optionPopupGroupRunAt:
+  description: Option to group scripts in popup shown only when sorting by execution order.
+  message: Kelompokkan menurut tahap @run-at
+optionPopupHideDisabled:
+  description: Option to hide disabled scripts in popup.
+  message: Sembunyikan nonaktif
+  touched: false
+optionPopupShowDisabled:
+  description: Option to show disabled scripts in popup.
+  message: Tampilkan skrip nonaktif
+  touched: false
+optionShowEnabledFirst:
+  description: Option to show enabled scripts first in alphabetical order.
+  message: Tampilkan skrip aktif di atas
+optionUiTheme:
+  description: Label for the theme selector in Advanced settings.
+  message: 'Tema UI:'
+optionUiThemeAuto:
+  description: Name of a theme selector value in settings.
+  message: otomatis
+optionUiThemeDark:
+  description: Name of a theme selector value in settings.
+  message: gelap
+optionUiThemeLight:
+  description: Name of a theme selector value in settings.
+  message: terang
+optionUpdate:
+  description: >-
+    Label of the update section in settings and notification title for script
+    updates.
+  message: Perbarui
+popupSettings:
+  description: Item inside the popup's "⋮" menu
+  message: ''
+popupSettingsHint:
+  description: Hint for the config button in the popup
+  message: ''
+readonly:
+  description: Text in the editor's header for non-editable scripts.
+  message: Hanya-baca
+readonlyNote:
+  description: Warning when trying to type in the editor.
+  message: >-
+    Skrip yang diperbarui otomatis dikunci dalam mode hanya-baca, kecuali Anda
+    menonaktifkan pembaruan skrip dan mengizinkan penyuntingan.
+readonlyOpt:
+  description: Option label in the editor, displayed along with readonlyOptWarn.
+  message: Izinkan penyuntingan
+readonlyOptWarn:
+  description: Text next to readonlyOpt label in the editor.
+  message: (pembaruan berikutnya akan menimpanya)
+reinstall:
+  description: Button to reinstall a script
+  message: Pasang ulang
+reloadTab:
+  description: Label of action to reload the tab
+  message: Muat ulang tab
+reloadTabTrackHint:
+  description: Tooltip for "Reload tab" checkbox when installer is tracking a local file.
+  message: >-
+    Jika diaktifkan, tab yang aktif akan dimuat ulang saat mendeteksi adanya
+    perubahan dan dengan URL yang sama.
+removeAllScripts:
+  description: Button to remove all scripts
+  message: Hapus semua skrip
+  touched: false
+removeAllScriptsConfirm:
+  description: Confirmation shown after clicking the `Remove all scripts` button.
+  message: >-
+    Hapus semua skrip ke "Keranjang Sampah"?
+
+    Keranjang Sampah akan dikosongkan secara permanen setelah beberapa saat.
+    Anda juga bisa membukanya dan mengosongkannya sekarang juga.
+  touched: false
+searchCaseSensitive:
+  description: Option to perform a case-sensitive search
+  message: Sesuai besar kecil huruf
+searchUseRegex:
+  description: Option to perform a regular expression search
+  message: Gunakan Regex
+sideMenuAbout:
+  description: 'Side menu: About'
+  message: Tentang
+sideMenuInstalled:
+  description: 'Side menu: Installed scripts'
+  message: Skrip terpasang
+sideMenuScripts:
+  description: 'Side menu: Scripts'
+  message: ''
+sideMenuSettings:
+  description: 'Side menu: Settings'
+  message: Pengaturan
+skipScripts:
+  description: Title of the hotkey in the browser UI for customizing the hotkeys.
+  message: Muat ulang halaman tanpa userscript
+skipScriptsMsg:
+  description: Message shown in the popup if the tab was reloaded without scripts.
+  message: >-
+    Anda menonaktifkan userscript untuk halaman ini. Untuk menjalankannya, muat
+    ulang atau kunjungi tab tersebut.
+sortOrder:
+  description: Label for the script sort order in dashboard, settings, popup settings.
+  message: ''
+stopTracking:
+  description: Button in a script installation dialog when actually tracking local file.
+  message: Setop pelacakan
+titleBadgeColor:
+  description: Tooltip for option to set badge color.
+  message: Warna lencana normal
+titleBadgeColorBlocked:
+  description: Tooltip for option to set badge color of non-injectable tabs.
+  message: >-
+    Warna lencana untuk situs yang tidak bisa diinjeksi (daftar hitam atau tidak
+    didukung)
+titleSearchHint:
+  description: Hover title for search icon in dashboard.
+  message: |-
+    * <Enter> menambahkan teks ke riwayat autocomplete
+    * Sintaksis RegExp didukung: /re/ dan /re/flags
+  touched: false
+titleSearchHintV2:
+  description: >-
+    Hover title for search icon in dashboard. Do not translate content between
+    <code>...</code>.
+  message: ''
+toggleInjection:
+  description: Label for a keyboard shortcut.
+  message: ''
+trackEdits:
+  description: Button in a script installation dialog.
+  message: Lacak penyuntingan eksternal
+trackEditsNote:
+  description: Text shown in installer when starting to track a local file.
+  message: >-
+    Biarkan halaman ini tetap terbuka untuk melacak perubahan yang Anda buat
+    dalam berkas lokal
+updateListedCmd:
+  description: >-
+    Command to update scripts e.g. in the extension popup, number of scripts in
+    parentheses.
+  message: Perbarui skrip ($1)
+updateScript:
+  description: Button to update one script.
+  message: Perbarui
+updateScriptForced:
+  description: Tooltip for the update icon.
+  message: ''
+updateScriptsAll:
+  description: Command/button to update all scripts.
+  message: Perbarui semua skrip
+updateScriptsInTab:
+  description: Command/button to update scripts that run in current tab.
+  message: Perbarui skrip tab aktif saat ini
+valueLabelKey:
+  description: Label for key of a script value.
+  message: Key (string)
+valueLabelValue:
+  description: Label for value of a script value.
+  message: Nilai (serialisasi sebagai JSON)
+valueLabelValueAll:
+  description: Label for input of entire script value storage.
+  message: Semua nilai (serialisasi sebagai JSON)
+valueLabelValueOr:
+  description: $1 is "[x] string"
+  message: ''
+valueLabelValueString:
+  description: '$1 is the checkbox: "Value (serialized as JSON or [x] string)"'
+  message: ''
+visitWebsite:
+  description: Label for link to open Violentmonkey website.
+  message: Kunjungi Situs Web
+  touched: false

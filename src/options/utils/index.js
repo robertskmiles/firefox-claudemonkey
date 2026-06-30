@@ -1,0 +1,126 @@
+import { reactive, ref } from 'vue';
+import { getScriptsTags, i18n, sendCmdDirectly } from '@/common';
+import { kTag } from '@/common/consts';
+import { route } from '@/common/router';
+
+export * from './search';
+
+export const filteredScripts = ref([]);
+export const sortedScripts = ref([]);
+export const store = reactive({
+  route,
+  batch: null,
+  /** Speedup and deflicker initial page load by not rendering an invisible script list */
+  canRenderScripts: [SCRIPTS, TAB_RECYCLE, ''].includes(route.hash),
+  scripts: [],
+  removedScripts: [],
+  /** @type {'all' | boolean} */
+  loaded: false,
+  /** Whether removed scripts need to be filtered from `store.scripts`. */
+  needRefresh: false,
+  now: Date.now(),
+  sync: [],
+  title: null,
+});
+
+export const kComment = 'comment';
+export const kInclude = 'include';
+export const kMatch = 'match';
+export const kExclude = 'exclude';
+export const kExcludeMatch = 'excludeMatch';
+export const kDescription = 'description';
+export const kDownloadURL = 'downloadURL';
+export const kHomepageURL = 'homepageURL';
+export const kIcon = 'icon';
+export const kName = 'name';
+export const kOrigExclude = 'origExclude';
+export const kOrigExcludeMatch = 'origExcludeMatch';
+export const kOrigInclude = 'origInclude';
+export const kOrigMatch = 'origMatch';
+export const kStorageSize = 'storageSize';
+export const kUpdateURL = 'updateURL';
+export const TOGGLE_ON = 'toggle-on';
+export const TOGGLE_OFF = 'toggle-off';
+export const vmZipEntryName = VIOLENTMONKEY.toLowerCase();
+
+// Same order as getSizes and sizesPrefixRe
+export const SIZE_TITLES = [
+  i18n('editNavCode'),
+  i18n('editNavSettings'),
+  i18n('editNavValues'),
+  '@require',
+  '@resource',
+];
+export const formatSizesStr = str => str
+  .slice(0, -1) // drop space
+  .replace(/\x20/g, '\xA0') // prevent wrapping for big space-separated numbers
+  .replace(/[^B]$/gm, '$&B'); // add B to units e.g.g M -> MB
+
+export let K_SAVE; // deduced from the current CodeMirror keymap
+
+export function inferSaveHotKey(hotkeys) {
+  K_SAVE = hotkeys.find(([, cmd]) => cmd === 'save')?.[0];
+  if (!K_SAVE) {
+    K_SAVE = 'Ctrl-S';
+    hotkeys.unshift([K_SAVE, 'save']);
+  }
+}
+
+export function markRemove(script, removed) {
+  return sendCmdDirectly('MarkRemoved', {
+    id: script.props.id,
+    removed,
+  });
+}
+
+/**
+ * @param {UIScript[]} scripts
+ */
+export function performSearch(scripts) {
+  const rules = store.search.rules;
+  if (!rules?.length) return;
+  for (const { $cache } of scripts) {
+    let show = 0;
+    for (const { re, negative, scope } of rules) {
+      const res = scope === kTag ? $cache[kTag].some(re.test, re) && 3 :
+        (!scope || scope === 'name') && ($cache.mark = re.exec($cache.name)) && 4 ||
+        (!scope || scope === 'desc') && re.test($cache.desc) && 2 ||
+        (!scope || scope === 'code') && re.test($cache.code) && 1;
+      if (negative ? res : !res) break;
+      if (res > show) show = res;
+    }
+    $cache.show = show;
+  }
+}
+
+export async function runInBatch(fn, ...args) {
+  try {
+    await (store.batch = fn(...args) || true);
+  } finally {
+    store.batch = false;
+  }
+}
+
+export function setLocationHash(hash) {
+  location.hash = hash || '';
+}
+
+export function toggleBoolean(event) {
+  const el = /** @type {HTMLTextAreaElement} */ event.target;
+  const { selectionStart: start, selectionEnd: end, value } = el;
+  // Ignoring double-clicks outside of <textarea>
+  const toggled = end && { false: 'true', true: 'false' }[value.slice(start, end)];
+  // FF can't run execCommand on textarea, https://bugzil.la/1220696#c24
+  if (toggled && !document.execCommand('insertText', false, toggled)) {
+    el.value = value.slice(0, start) + toggled + value.slice(end);
+    el.setSelectionRange(start + toggled.length, start + toggled.length);
+    el.dispatchEvent(new Event('input'));
+    el.onblur = () => el.dispatchEvent(new Event('change'));
+  }
+}
+
+export async function updateTags() {
+  store.tags = store.loaded !== 'all'
+    ? await sendCmdDirectly('GetTags')
+    : getScriptsTags(store.scripts);
+}

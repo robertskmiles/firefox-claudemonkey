@@ -1,0 +1,1147 @@
+buttonApply:
+  description: Apply button on dialog that applies changes without closing the dialog.
+  message: Toepassen
+buttonCancel:
+  description: Cancel button on dialog.
+  message: Annuleren
+buttonCheckForUpdates:
+  description: Button to check a script for updates.
+  message: Controleren op updates
+  touched: false
+buttonClose:
+  description: Button to close window.
+  message: Sluiten
+buttonConfirmInstallation:
+  description: Button to confirm installation of a script.
+  message: Installatie bevestigen
+  touched: false
+buttonConfirmReinstallation:
+  description: Button to confirm re-installation when the script is already installed.
+  message: Herinstallatie bevestigen
+  touched: false
+buttonDisable:
+  description: Button to disable a script.
+  message: Uitschakelen
+buttonDownloadThemes:
+  description: Button in Violentmonkey settings for editor.
+  message: 'Thema''s downloaden:'
+  touched: false
+buttonEdit:
+  description: Button to edit a script.
+  message: Bewerken
+buttonEditClickHint:
+  description: Tooltip for the Edit button in popup.
+  message: Je kunt tevens rechts-, middel- of Ctrl-klikken op de scriptnaam.
+buttonEmptyRecycleBin:
+  description: Button to empty the recycle bin.
+  message: Leeg de prullenbak!
+buttonEnable:
+  description: Button to enable a script.
+  message: Inschakelen
+buttonExportData:
+  description: Button to open the data export dialog.
+  message: Exporteren naar zip-bestand
+buttonFilter:
+  description: Button to show filters menu.
+  message: Filters
+  touched: false
+buttonHome:
+  description: Button to open homepage.
+  message: Website
+buttonImportData:
+  description: Button to choose a file for data import.
+  message: Importeren uit zip-bestand
+buttonInstallFromURL:
+  description: Button to ask for URL of a user script.
+  message: Installeren van url
+buttonInstallOptions:
+  description: Button to show options of installation confirm page.
+  message: Opties
+  touched: false
+buttonNew:
+  description: Button to create a new script.
+  message: Nieuw
+buttonOK:
+  description: OK button on dialog.
+  message: Oké
+buttonRecycleBin:
+  description: Button to list scripts in recycle bin.
+  message: Prullenbak
+buttonRemove:
+  description: Button to remove a script.
+  message: Verwijderen
+buttonReplace:
+  description: Button to replace the current match.
+  message: Vervangen
+buttonReplaceAll:
+  description: Button to replace all matches.
+  message: Alles
+buttonReset:
+  description: Button to reset to default values.
+  message: Standaardwaarden
+buttonResetSettings:
+  description: Button in settings page to reset all settings
+  message: Standaardwaarden
+buttonRestore:
+  description: Button to restore a removed script.
+  message: Herstellen
+buttonSave:
+  description: Button to save modifications of a script.
+  message: Opslaan
+buttonSaveClose:
+  description: Button to save modifications of a script and then close the editing page.
+  message: Opslaan en sluiten
+buttonSaved:
+  description: Button text after saving.
+  message: Opgeslagen
+buttonShowEditorState:
+  description: Button to show the list of currently used CodeMirror options.
+  message: Bewerkstatus tonen
+buttonSupport:
+  description: Button to open support page.
+  message: Ondersteuningspagina
+buttonSyncPullOnce:
+  description: Button to sync scripts from remote to local for once
+  message: Eenmalig lokaal ophalen
+buttonSyncPushOnce:
+  description: Button to sync scripts from local to remote for once
+  message: Eenmalig versturen naar externe bron
+buttonUndo:
+  description: Button to undo removement of a script.
+  message: Ongedaan maken
+buttonUpdate:
+  description: Button to update a script.
+  message: Bijwerken
+buttonUpdateAll:
+  description: Check all scripts for updates.
+  message: Alle scripts controleren op updates
+  touched: false
+buttonVacuum:
+  description: Button to vacuum extension data.
+  message: Gegevens opschonen
+buttonVacuumed:
+  description: Message shown when data is vacuumed.
+  message: Gegevens zijn opgeschoond
+buttonVacuuming:
+  description: Message shown when data vacuum is in progress.
+  message: Gegevens aan het opschonen...
+confirmManualUpdate:
+  description: Confirm message shown when clicking update button for a single script.
+  message: |-
+    Automatisch bĳwerken van dit script is uitgeschakeld!
+    Klik op oké om tóch bĳ te werken.
+confirmNotSaved:
+  description: Confirm message shown when there are unsaved script modifications.
+  message: |-
+    De aanpassingen zijn niet opgeslagen!
+    Klik op oké om ze te verwerpen of annuleren om door te gaan.
+confirmUndoImport:
+  description: >-
+    Tooltip of the Undo button after importing a zip in settings. The same text
+    is also shown as a confirmation dialog after clicking this button.
+  message: >-
+    Herstel alle wijzigingen aan de databank (importeren, bijwerken, bewerken en
+    aanpassen)
+descBlacklist:
+  description: Description for the global injection blacklist.
+  message: Zwarte injectielijst (scripts worden niet op deze sites uitgevoerd)
+descBlacklistNet:
+  description: Description for the global network blacklist.
+  message: >-
+    Zwarte netwerklijst (scripts maken geen verbinding met deze sites en hun
+    cookies)
+descCustomCSS:
+  description: Description of custom CSS section.
+  message: >-
+    Aangepaste css op de instellingen- en scriptinstallatiepagina's. Bij twijfel
+    leeglaten.
+descEditorOptions:
+  description: Description of editor options JSON section.
+  message: >-
+    Aangepaste instellingen voor CodeMirror en uitbreidingen in json-objecten,
+    zoals <code>{"indentUnit":2, "smartIndent":true}</code>. Let op: niet alle
+    werken gegarandeerd in Violentmonkey. Bekijk de <a
+    href="https://codemirror.net/doc/manual.html#config" target="_blank"
+    rel="noopener noreferrer">volledige lijst</a>.
+descEditorOptionsGeneric:
+  description: Description of editor options in VM settings.
+  message: >-
+    Boolean opties kunnen worden omgeschakeld door te dubbelklikken op de
+    waarde: <code>true</code> = ingeschakeld, <code>false</code> =
+    uitgeschakeld. Numerieke opties die eindigen op <code>Delay</code>,
+    <code>Interval</code>, <code>Rate</code>, <code>Time</code> zijn in
+    milliseconden.
+descEditorOptionsVM:
+  description: Description of nonstandard editor options in VM settings.
+  message: >-
+    Niet-standaard opties: <code>autocompleteOnTyping</code> is een vertraging
+    in milliseconden om autocomplete hints weer te geven na het typen van
+    (<code>0</code> = uitschakelen), <code>killTrailingSpaceOnSave</code>
+    verwijdert automatisch spaties in elke regel bij het opslaan,
+    <code>showTrailingSpace</code> toont de achterliggende spaties als punten.
+descScriptTemplate:
+  description: Description of script template section.
+  message: >-
+    Ondersteunde variabelen: <{{name}}>, <{{url}}>, <{{icon}}>, <{{date}}>,
+    <{{date:format}}> met een met MomentJS compatibel formaat, bijvoorbeeld
+    <{{date:YYYY-MM-DD}}>.
+disabledScriptsGroup:
+  description: 'Used as "Disabled scripts: group"'
+  message: groep
+disabledScriptsHide:
+  description: 'Used as "Disabled scripts: hide"'
+  message: verbergen
+disabledScriptsSelector:
+  description: Label of the option.
+  message: 'Uitgeschakelde scripts:'
+disabledScriptsShow:
+  description: 'Used as "Disabled scripts: show"'
+  message: tonen
+editHelpDocumentation:
+  description: Label in the editor help tab for the documentation link.
+  message: 'Documentatie over gebruikersscript metagegevensblok en <code>GM</code> API:'
+editHelpKeyboard:
+  description: Label in the editor help tab for the keyboard shortcuts.
+  message: 'Sneltoetsen:'
+editHowToHint:
+  description: The text of the how-to link in the editor header.
+  message: Andere bewerker?
+editLabelMeta:
+  description: Metadata section in settings tab of script editor.
+  message: Aangepaste metagegevens
+editLabelSettings:
+  description: Settings section in settings tab of script editor.
+  message: Scriptinstellingen
+editLongLine:
+  description: Shown in the editor in lines that were cut due to being too long
+  message: Regel is te lang
+editLongLineTooltip:
+  description: Tooltip shown in the editor in lines that were cut due to being too long
+  message: >-
+    Deze regel is te lang. De tekst is ingeklapt om vertraging tijdens het typen
+    te voorkomen.
+
+    Je kunt deze beperking aanpassen in de geavanceerde instellingen. Voorbeeld:
+
+    "maxDisplayLength": 20000
+editNavCode:
+  description: Label of code tab in script editor.
+  message: Code
+editNavSettings:
+  description: Label of settings tab in script editor.
+  message: Instellingen
+editNavValues:
+  description: Label of values tab in script editor.
+  message: Waarden
+editValueAll:
+  description: Button to show/edit the entire script value storage.
+  message: Alles
+  touched: false
+editValueAllHint:
+  description: Tooltip for the 'all' button.
+  message: Alle scriptwaarden tonen/aanpassen
+extDescription:
+  description: Description for this extension, will be displayed in web store
+  message: Een open source gebruikersscriptbeheerder voor diverse webbrowsers
+extName:
+  description: Name of this extension.
+  message: Violentmonkey
+failureReasonBlacklisted:
+  description: Shown for blacklisted URLs (in the extension icon tooltip, in the popup)
+  message: Staat op Violentmonkey's zwarte lijst
+failureReasonNoninjectable:
+  description: >-
+    Shown for URLs that cannot be processed (same places as
+    failureBlacklistedUrl)
+  message: >-
+    Violentmonkey kan geen gebruikersscripts uitvoeren op deze pagina
+
+    (bijv. interne of extensiepagina's, of vanwege een blokkadebeleid of
+    bepaalde Opera-zoekmachine)
+failureReasonRestarted:
+  description: Shown in the popup.
+  message: >-
+    Violentmonkey is opnieuw opgestart. Laad het tabblad opnieuw om
+    gebruikersscripts uit te voeren.
+fileInstallBlocked:
+  description: Text in the installer when a local file is dropped into the browser window.
+  message: >-
+    Er zijn verschillende manieren op bewerkingen in een lokaal bestand op te
+    nemen of bij te houden: <1> Sleep het bestand naar een geopende
+    Violentmonkey-pagina of -pop-up, zoals deze. <2> Installeer een lokale
+    http-server voor dit bestand en open via http://localhost. <3> Schakel
+    toegang tot bestands-url's in voor Violentmonkey op chrome://extensions. Let
+    op: dit wordt afgeraden, omdat elk gebruikersscript lokale bestanden kan
+    uitlezen.
+filterAlphabeticalOrder:
+  description: Label for option to sort scripts in alphabetical order.
+  message: alfabetisch
+filterExecutionOrder:
+  description: Label for option to sort scripts in execution order.
+  message: uitvoervolgorde
+filterLastUpdateOrder:
+  description: Label for option to sort scripts by last update time.
+  message: onlangs bijgewerkt
+filterLastVisitOrder:
+  description: >-
+    Label for option to sort scripts by the last time the user visited any site
+    targeted by this script.
+  message: recentst bezoek
+filterLastVisitOrderTooltip:
+  description: Tooltip for option to sort scripts.
+  message: De recentste keer dat je een site waarop het script werkt bezocht hebt.
+filterScopeAll:
+  description: Option in dashboard's search scope filter.
+  message: Alle
+  touched: false
+filterScopeCode:
+  description: Option in dashboard's search scope filter.
+  message: Code
+  touched: false
+filterScopeName:
+  description: Option in dashboard's search scope filter.
+  message: Naam
+  touched: false
+filterSize:
+  description: Label for option to sort scripts by size.
+  message: omvang
+genericError:
+  description: Label for generic error.
+  message: Fout
+genericOff:
+  description: To indicate something is turned off or disabled, similar to "no".
+  message: uit
+genericOn:
+  description: To indicate something is turned on or enabled, similar to "yes".
+  message: aan
+genericUseGlobal:
+  description: To indicate some per-script option will use its analog in global settings.
+  message: algemene instelling volgen
+hashPatternWarning:
+  description: Warning shown in the editor, $1 is the pattern(s).
+  message: >-
+    "#"-patronen werken alleen bij het openen van de site of bij het opnieuw
+    laden van het tabblad: $1
+headerRecycleBin:
+  description: Text shown in the header when scripts in recycle bin are listed.
+  message: Prullenbak
+helpForLocalFile:
+  description: Label of the checkbox.
+  message: Instructies tonen voor slepen-en-neerzetten van lokale scripts
+hintForBatchAction:
+  description: Hint shown next to the buttons for batch actions.
+  message: voor $1 overeenkomende scripts
+hintGrantNone:
+  description: Don't translate back-quoted terms.
+  message: '`@grant none` schakelt alle andere `@grant`-sleutels uit.'
+hintGrantless:
+  description: >-
+    1) This is a tooltip so preserve the line breaks to ensure it's not too
+    wide. 2) Don't translate back-quoted terms like `window` or `@grant none`.
+  message: |-
+    Een gesandboxed script kan deze globale eigenschappen niet wĳzigen: $1.
+    Voeg `@grant none` toe om de sandbox uit te schakelen of maak gebruik van
+    `unsafeWindow` in plaats van `window`.
+hintInputURL:
+  description: Hint for a prompt box to input URL of a user script.
+  message: 'Invoer-url:'
+hintRecycleBin:
+  description: Hint for recycle bin.
+  message: Verwijderde scripts worden hier getoond en 7 dagen bewaard.
+hintUseDownloadURL:
+  description: Shown as a place holder for @updateURL when it is not assigned
+  message: '@downloadURL gebruiken'
+hintVacuum:
+  description: Hint for vacuuming data.
+  message: Wis de overbodige gegevens en probeer de ontbrekende bronnen te herladen.
+install:
+  description: Label for button to install a script.
+  message: Installeren
+installFrom:
+  description: Label for button to install script from a userscript site.
+  message: Installeren van $1
+installOptionClose:
+  description: Option to close confirm window after installation.
+  message: Sluiten na installatie
+  touched: false
+installOptionTrackTooltip:
+  description: >-
+    Tooltip in Firefox 68+ for the option to track the loading local file before
+    window is closed.
+  message: In Firefox 68 en nieuwer moet het brontabblad geopend blijven.
+labelAbout:
+  description: Label shown on top of the about page.
+  message: Over Violentmonkey
+  touched: false
+labelAdvanced:
+  description: Label for button to show advanced settings.
+  message: Geavanceerd
+labelAllowUpdate:
+  description: Option to allow checking updates for a script.
+  message: Updates toestaan
+labelAuthor:
+  description: Label of author shown in the details of a script.
+  message: 'Auteur: '
+labelAutoReloadCurrentTab:
+  description: Option to reload current tab after a script is switched on or off from menu.
+  message: Huidig tabblad herladen na in-/uitschakelen van een script
+labelAutoReloadCurrentTabDisabled:
+  description: >-
+    Tooltip in menu after Violentmonkey is switched off if auto-reload is
+    disabled.
+  message: De huidige scripts worden uitgevoerd totdat je het tabblad herlaadt
+  touched: false
+labelAutoUpdate:
+  description: Option to allow automatically checking scripts for updates
+  message: Elke $1 dag(en) controleren op updates (0 = uitschakelen)
+labelBackup:
+  description: Label of the import/export section in settings.
+  message: Back-ups
+labelBackupMaintenance:
+  description: Label of the import/export/maintenance section in settings.
+  message: Reservekopie en onderhoud
+labelBadge:
+  description: Label for option to show number on badge.
+  message: 'Embleem:'
+labelBadgeColors:
+  description: Label for option group to set badge colors.
+  message: 'Embleemkleuren:'
+labelBadgeNone:
+  description: Option to display nothing on badge.
+  message: niks
+labelBadgeTotal:
+  description: Option to display total number of running scripts on badge.
+  message: aantal actieve scripts
+labelBadgeUnique:
+  description: Option to display number of unique running scripts on badge.
+  message: aantal unieke actieve scripts
+labelBlacklist:
+  description: Label for global blacklist settings in security section.
+  message: Zwarte lijst
+labelComment:
+  description: Label for a comment text in the script editor settings.
+  message: Opmerking
+labelContributors:
+  description: Label for link to contributors.
+  message: Bijdragers
+labelCurrentLang:
+  description: Label of current language.
+  message: 'Huidige taal: '
+labelCustomCSS:
+  description: Label for custom CSS section.
+  message: Aangepaste stijl
+labelDataExport:
+  description: Section title of data export.
+  message: Gegevens exporteren
+  touched: false
+labelDataImport:
+  description: Section title of data import.
+  message: Gegevens importeren
+  touched: false
+labelDonate:
+  description: Label of link to donate page.
+  message: Doneren
+  touched: false
+labelDownloadURL:
+  description: Label of script @downloadURL in custom meta data.
+  message: 'Download-url:'
+labelEditValue:
+  description: Label shown in the panel to edit a script value.
+  message: Scriptwaarde aanpassen
+labelEditValueAll:
+  description: Label shown in the panel to edit the entire script value storage.
+  message: Scriptopslag aanpassen
+labelEditor:
+  description: Label for Editor settings
+  message: Bewerker
+labelEnabledScriptsOnly:
+  description: Sub-option for autoupdate option, begins with a lowercase letter.
+  message: Alleen ingeschakelde scripts
+labelExclude:
+  description: Label of @exclude rules.
+  message: '@exclude-regels'
+labelExcludeMatch:
+  description: Label of @exclude-match rules.
+  message: '@exclude-match-regels'
+labelExportScriptData:
+  description: Option to export script data along with scripts.
+  message: Scriptgegevens exporteren
+labelExposeStatus:
+  description: Option in advanced settings.
+  message: 'Geïnstalleerde versies tonen aan gebruikersscriptsites: $1'
+labelFastFirefoxInject:
+  description: (`$1` will be shown as `page`) Option in Advanced settings.
+  message: Alternatieve $1-modus in Firefox
+labelFastFirefoxInjectHint:
+  description: Tooltip hint for the option in Advanced settings.
+  message: >-
+    Een alternatieve injectiemethode voor <document-start>scripts voor Firefox
+    59 en nieuwer. Deze methode is sneller en vergelijkbaar met ‘Synchrone
+    paginamodus’. Hierdoor is het geheugengebruik hoger, dus schakel deze optie
+    uit als scripts ook zonder deze optie werken.
+labelFeedback:
+  description: Label of link to feedback page.
+  message: Feedback
+labelGeneral:
+  description: Label for general settings.
+  message: Algemeen
+labelHelpTranslate:
+  description: Label for link to localization guide in about tab
+  message: Helpen met vertalen
+labelHomepage:
+  description: Label for home page in about tab.
+  message: Website
+labelHomepageURL:
+  description: Label of script @homepageURL in custom meta data.
+  message: 'Website-url:'
+labelHttpOnlyCookie:
+  description: Option in Advanced settings to enable HTTP-only cookies for GM_cookie.
+  message: GM_cookie toestaan om http-cookies op te vragen
+labelHttpOnlyCookieHint:
+  description: Tooltip for the HTTP-only cookie option.
+  message: >-
+    Schakel in om scripts cookies te laten uitlezen en wegschrijven aan de hand
+    van de alleen-http-optie. Hierdoor krijgen scrips toegang tot cookies die
+    niet via JavaScript toegankelijk zijn. Gebruik hiervan is op eigen risico.
+labelIconURL:
+  description: Label for the input.
+  message: 'Pictogram-url:'
+labelImportScriptData:
+  description: Option to import script data along with scripts.
+  message: Scriptgegevens importeren
+labelImportSettings:
+  description: Label for option to import settings from zip file.
+  message: Instellingen importeren
+labelInclude:
+  description: Label of @include rules.
+  message: '@include-regels'
+labelInjectionMode:
+  description: >-
+    Label for option in advanced settings and in script settings. Don't forget
+    the space after ":" if the translated language separates words with spaces.
+  message: 'Injectiemodus:'
+labelInstall:
+  description: Shown in the title of the confirm page while trying to install a script.
+  message: Scriptinstallatie
+labelKeepOriginal:
+  description: Option to keep the original match or ignore rules.
+  message: Origineel behouden
+labelLastUpdatedAt:
+  description: Label shown on last updated time.
+  message: Bijgewerkt op $1
+labelLineNumber:
+  description: Label for line number jumper.
+  message: 'Regelnummer: '
+labelMatch:
+  description: Label of @match rules.
+  message: '@match-regels'
+labelName:
+  description: Label of script name.
+  message: 'Naam:'
+labelNoFrames:
+  description: Label of script @noframes properties in custom meta data.
+  message: 'Uitvoeren in frames:'
+labelNoName:
+  description: Text as the name of a script when no @name is assigned.
+  message: Naamloos
+labelNoSearchScripts:
+  description: Message shown when no script is found in search results.
+  message: Er zijn geen scripts gevonden.
+labelNotifyThisUpdated:
+  description: >-
+    A per-script option in editor to enable notification when this script is
+    updated. The text follows "Allow update" checkbox option so it's like a
+    continuation of the phrase.
+  message: ', en melden:'
+labelNotifyUpdates:
+  description: Option to show notification when script is updated.
+  message: Melding tonen bij scriptupdates
+labelNotifyUpdatesGlobal:
+  description: Option to prioritize global notification option over script's setting.
+  message: per-scriptmeldingen negeren (tabblad 'instellingen' in de bewerker)
+labelPageMenuCommands:
+  description: Checkbox item in page context menu and option to enable script commands.
+  message: Scriptopdrachten in paginamenu tonen
+labelPrivacyPolicy:
+  description: Label of link to privacy policy
+  message: Privacybeleid
+labelReinstall:
+  description: >-
+    Shown in the title of the confirm page while trying to install a script
+    that's already installed.
+  message: Bezig met herinstalleren…
+labelRelated:
+  description: Label of related links.
+  message: 'Gerelateerde links: '
+labelRemovedAt:
+  description: Label for the time when the script is removed.
+  message: Verwijderd op $1
+labelReplace:
+  description: Label for replace input in search box.
+  message: 'Vervangen door: '
+labelRunAt:
+  description: Label of script @run-at properties in custom meta data.
+  message: 'Uitvoeren op: '
+labelRunAtDefault:
+  description: Shown when custom @run-at is not assigned.
+  message: (standaard)
+labelScriptOptionRequired:
+  description: Shown after some global options in settings
+  message: (alleen voor scripts waarvan deze optie is ingeschakeld)
+labelScriptOptionRequiredGlobal:
+  description: Shown after some options in a script's settings
+  message: (deze optie moet tevens in de globale instellingen worden ingeschakeld)
+labelScriptTemplate:
+  description: Label for custom script template.
+  message: Aangepast scriptsjabloon
+labelSearch:
+  description: Label for search input in search box.
+  message: 'Zoeken naar: '
+labelSearchScript:
+  description: Placeholder for script search box.
+  message: Zoeken naar scripts...
+labelSettings:
+  description: Label shown on the top of settings page
+  message: Instellingen
+labelShowOrder:
+  description: Label for option in dashboard -> script list
+  message: Uitvoervolgorde tonen
+labelShowVisited:
+  description: Label for option in dashboard -> script list
+  message: Recentste bezoektijd tonen
+labelSync:
+  description: Label for sync options.
+  message: Synchroniseren
+labelSyncAnonymous:
+  description: Label for using anonymous account.
+  message: Anoniem account gebruiken
+labelSyncAuthorize:
+  description: Label for button to authorize a service.
+  message: Goedkeuren
+labelSyncAuthorizing:
+  description: Label for button when authorization is in progress.
+  message: Bezig met goedkeuren
+labelSyncAutomatically:
+  description: Label for option to sync automatically.
+  message: Automatisch synchroniseren
+labelSyncDisabled:
+  description: Label for option to disable sync service.
+  message: Niets
+labelSyncPassword:
+  description: Label for input to hold password.
+  message: 'Wachtwoord: '
+labelSyncReauthorize:
+  description: Option to reauthorize sync service when expired.
+  message: ''
+  touched: false
+labelSyncRevoke:
+  description: Label for button to revoke authorization for a service.
+  message: Intrekken
+labelSyncS3AccessKeyId:
+  description: Label for S3 access key ID input.
+  message: 'Toegangssleutel-id:'
+labelSyncS3Bucket:
+  description: Label for S3 bucket name input.
+  message: 'Bucket:'
+labelSyncS3Endpoint:
+  description: Label for custom S3-compatible endpoint URL input (leave blank for AWS).
+  message: 'Eigen endpoint:'
+labelSyncS3Prefix:
+  description: Label for S3 key prefix input (folder within the bucket).
+  message: 'Sleutelvoorvoegsel:'
+labelSyncS3Region:
+  description: Label for S3 region input.
+  message: 'Regio:'
+labelSyncS3SecretAccessKey:
+  description: Label for S3 secret access key input.
+  message: 'Geheime toegangssleutel:'
+labelSyncScriptStatus:
+  description: Label for option to sync script status.
+  message: Scriptstatus synchroniseren
+labelSyncServerUrl:
+  description: Label for input to hold server URL.
+  message: 'Server-url: '
+labelSyncService:
+  description: Label for sync service select.
+  message: Synchroniseren naar
+labelSyncUsername:
+  description: Label for input to hold username.
+  message: 'Gebruikersnaam: '
+labelTags:
+  description: Label for custom tags. Don't translate @tag.
+  message: '@tag / labels'
+labelTheme:
+  description: Label for the visual theme option.
+  message: 'Thema:'
+labelTranslator:
+  description: Label of translator.
+  message: ''
+  touched: false
+labelUpdateURL:
+  description: Label of script @updateURL in custom meta data.
+  message: 'Bijwerk-url:'
+labelViewSingleColumn:
+  description: >-
+    Label for option in dashboard script list to show the scripts in single
+    column.
+  message: Eén kolom
+labelViewTable:
+  description: Label for option in dashboard script list to show the scripts as a table.
+  message: Tabelweergave
+labelWidth:
+  description: Width.
+  message: 'Breedte:'
+labelXhrInject:
+  description: >-
+    (`$1` will be shown as `page`) Option in Advanced settings to enable
+    synchronous injection.
+  message: Synchrone $1modus
+labelXhrInjectHint:
+  description: Tooltip of the `Synchronous page mode` option in Advanced settings.
+  message: >-
+    Schakel deze optie alleen in als je een script hebt dat dient te worden
+    uitgevoerd vóórdat de pagina wordt geladen en het momenteel niet wordt
+    uitgevoerd. Dit is vergelijkbaar met de injectiemodus van Tampermonkey en
+    maakt gebruik van de verouderde synchrone XHR. Hierdoor kan het gebeuren dat
+    je Chrome-/Chromium-console waarschuwingen toont - deze kun je echter
+    negeren. Rechtsklik op een waarschuwing om deze nooit meer te tonen.
+labelXhrInjectNote:
+  description: Shown to the right of "synchronous page mode" in options.
+  message: (m.u.v. incognitomodus en websites met uitgeschakelde cookies)
+lastSync:
+  description: Label for last sync timestamp.
+  message: Gesynchroniseerd op $1
+learnBlacklist:
+  description: Refers to a link to introduce blacklist patterns.
+  message: Meer informatie over zwartelijstpatronen.
+learnInjectionMode:
+  description: Refers to a link to introduce injection modes.
+  message: Meer informatie over injectiemodi.
+linkManageRemoteFiles:
+  description: Label for link to manage remote files.
+  message: Externe bestanden beheren
+menuCommands:
+  description: Menu item to list script commands.
+  message: ''
+  touched: false
+menuDashboard:
+  description: Label for menu item to open dashboard.
+  message: Controlepaneel openen
+menuExclude:
+  description: >-
+    Shown in popup menu after clicking script's "..." dropdown so try to keep
+    the label short.
+  message: Uitsluiten...
+menuExcludeHint:
+  description: Shown in popup menu after clicking "Exclude..." in script's "..." dropdown.
+  message: >-
+    Als je deze instelling hebt ingeschakeld, dan zal het huidige tabblad
+    automatisch worden herladen.
+
+    Herlaad de andere tabbladen handmatig om de wijzigingen toe te passen.
+
+    Op het tabblad 'Instellingen' van de bewerker heb je meer flexibiliteit.
+menuFeedback:
+  description: >-
+    Menu item in popup to open the selected script's feedback page. Please use a
+    short word in translation to keep the menu narrow.
+  message: Feedback
+menuFindScripts:
+  description: Menu item to find scripts for a site.
+  message: Scripts voor deze site zoeken
+menuInjectionFailed:
+  description: Injection error.
+  message: Enkele scripts kunnen niet worden geïnjecteerd.
+menuInjectionFailedFix:
+  description: Injection error fix, shown in case the default mode is "page".
+  message: Opnieuw proberen in 'automatische' modus
+menuMatchedDisabledScripts:
+  description: >-
+    Label for menu listing matched disabled scripts when the option to group
+    disabled scripts is selected.
+  message: Uitgeschakelde compatibele scripts
+menuMatchedFrameScripts:
+  description: Label for menu listing matching scripts in sub-frames.
+  message: Alleen scripts met onderliggende frames
+menuMatchedScripts:
+  description: Label for menu listing matched scripts.
+  message: Compatibele scripts
+menuNewScript:
+  description: Menu item to create a new script.
+  message: Script schrijven
+menuScriptDisabled:
+  description: Menu item showing the status of Violentmonkey, when disabled.
+  message: Scripts zijn uitgeschakeld
+menuScriptEnabled:
+  description: Menu item showing the status of Violentmonkey, when enabled.
+  message: Scripts zijn ingeschakeld
+msgCheckingForUpdate:
+  description: Message shown when a script is being checked for updates by version numbers.
+  message: Bezig met controleren op updates...
+msgDateFormatInfo:
+  description: Help text of the info icon in VM settings for the export file name.
+  message: >-
+    Klik om de MomentJS-documentatie te lezen. Toegestane sleutels: $1. Gebruik
+    [vierkante haakjes] om letterlijke tekst te beschermen.
+msgErrorFetchingResource:
+  description: >-
+    Message shown when Violentmonkey fails fetching a resource/require/icon of
+    the script.
+  message: De bron kan niet worden opgehaald!
+msgErrorFetchingScript:
+  description: Message shown when Violentmonkey fails fetching a new version of the script.
+  message: Het script kan niet worden opgehaald!
+msgErrorFetchingUpdateInfo:
+  description: Message shown when Violentmonkey fails fetching version data of the script.
+  message: De update-informatie kan niet worden opgehaald.
+msgErrorLoadingData:
+  description: >-
+    Message shown on confirm page when the script to be installed cannot be
+    loaded.
+  message: De scriptgegevens kunnen niet worden geladen.
+msgErrorLoadingDependency:
+  description: Message shown when not all requirements are loaded successfully.
+  message: De afhankelijkheden kunnen niet worden geladen.
+msgImported:
+  description: >-
+    Message shown after import. There is an argument referring to the count of
+    scripts imported.
+  message: $1 item(s) zijn geïmporteerd.
+msgIncognitoChanges:
+  description: >-
+    Message shown in popup and installation tab when opened in an incognito
+    window.
+  message: Aanpassingen in incognitomodus worden tevens toegepast op het hoofdprofiel.
+msgInstalled:
+  description: Message shown when a script is installed.
+  message: Script geïnstalleerd.
+msgInvalidScript:
+  description: Message shown when script is invalid.
+  message: Ongeldig script!
+msgLoadedData:
+  description: >-
+    Message shown in the confirm page when a javascript file to be installed is
+    loaded.
+  message: De scriptgegevens zijn geladen.
+  touched: false
+msgLoading:
+  description: Message shown in the options page before script list is loaded.
+  message: ''
+  touched: false
+msgLoadingData:
+  description: Message shown on confirm page when the script to be installed is loading.
+  message: Bezig met laden van scriptgegevens...
+msgLoadingDependency:
+  description: Message shown on confirm page when the requirements are being downloaded.
+  message: Bezig met laden van afhankelijkheden... ($1/$2)
+msgMissingResources:
+  description: >-
+    Notification title shown for a missing @require or other resource when
+    running such scripts.
+  message: Er ontbreken vereiste bronnen.
+msgNamespaceConflict:
+  description: >-
+    Message shown when namespace of the new script conflicts with an existent
+    one.
+  message: |-
+    Er is al een vergelijkbaar script geïnstalleerd.
+    Kies een andere @name en @namespace of bewerk het andere script.
+msgNamespaceConflictRestore:
+  description: >-
+    Message shown when namespace of the script to restore from recycle bin
+    conflicts with an existent one.
+  message: Er is al een script met dezelfde @name en @namespace geïnstalleerd.
+msgNewVersion:
+  description: >-
+    Message shown when a new version of script is found by @updateURL, but no
+    @downloadURL is provided.
+  message: Nieuwe versie gevonden.
+msgNoUpdate:
+  description: Message shown when there is no new version of a script.
+  message: Geen update gevonden.
+msgOpenUpdateErrors:
+  description: Shown at the beginning of a notification (Chrome) or in its title (Firefox).
+  message: De scripts kunnen niet worden bijgewerkt. Klik om te openen.
+msgReinstallScripts:
+  description: >-
+    Notification body shown for a missing @require or other resource when
+    running such scripts.
+  message: 'Sla de volgende scripts opnieuw op of herinstalleer ze:'
+msgSameCode:
+  description: Shown inside the title when re-installing a script that's already installed.
+  message: (code is hetzelfde)
+msgSavedBlacklist:
+  description: Message shown when blacklist are saved.
+  message: De zwarte lijst is bijgewerkt.
+  touched: false
+msgSavedCustomCSS:
+  description: Message shown when custom CSS is saved.
+  message: De aangepaste stijl is bijgewerkt.
+  touched: false
+msgSavedEditorOptions:
+  description: Message shown when editor options are saved.
+  message: De bewerkerinstellingen zijn opgeslagen.
+  touched: false
+msgSavedScriptTemplate:
+  description: Message shown when custom script template is saved.
+  message: Het aangepaste scriptsjabloon is bijgewerkt.
+  touched: false
+msgScriptUpdated:
+  description: Notification message for script updates.
+  message: Script [$1] is bijgewerkt!
+msgShowHide:
+  description: Tooltip or text shown on a toggle that shows/hides stuff
+  message: Tonen/Verbergen
+msgSyncError:
+  description: Message shown when sync failed.
+  message: Synchronisatiefout!
+msgSyncInit:
+  description: Message shown when sync service is initializing.
+  message: Bezig met initialiseren...
+msgSyncInitError:
+  description: Message shown when sync fails in initialization.
+  message: Initialisatiefout!
+msgSyncNoAuthYet:
+  description: Message shown when the selected sync provider hasn't been authorized yet.
+  message: Nog niet geautoriseerd.
+msgSyncReady:
+  description: Message shown when sync will start soon.
+  message: De synchronisatie begint spoedig...
+  touched: false
+msgSyncing:
+  description: Message shown when sync is in progress.
+  message: Bezig met synchroniseren...
+msgSyntaxError:
+  description: Shown in popup when a script didn't run and we don't know the exact reason.
+  message: Syntaxisfout?
+msgTardyMatch:
+  description: Shown in popup for scripts that missed their chance to run.
+  message: >-
+    Het script bestond niet of kwam niet overeen met de URL toen de pagina werd
+    geladen, wat gebeurt bij Single-Page Application-sites zoals FB of Instagram
+    die gebruikmaken van nepnavigatie. Je kan het tabblad opnieuw laden om het
+    script uit te voeren. Gebruik @match voor de hele site om het script te
+    repareren en detecteer vervolgens wijzigingen met MutationObserver of
+    window.navigation API.
+msgUpdated:
+  description: Message shown when a script is updated/reinstalled.
+  message: Het script is bijgewerkt.
+msgUpdating:
+  description: Message shown when a new version of script is being fetched.
+  message: Bezig met bijwerken...
+noValues:
+  description: Label shown when there is no value for current script.
+  message: Er is geen waarde opgeslagen
+optionEditorWindow:
+  description: Label for the option in settings
+  message: Bewerker in nieuw venster openen
+optionEditorWindowHint:
+  description: >-
+    Tooltip for optionEditorWindow in case the browser doesn't support
+    onBoundsChanged
+  message: >-
+    De vensterpositie van de bewerker wordt alleen onthouden na het aanpassen
+    van de afmetingen en bij het opslaan
+optionEditorWindowSimple:
+  description: Label for the editor window type
+  message: Omnibalk verbergen
+optionPopup:
+  description: Label of the popup menu section in settings.
+  message: Pop-upmenu en pictogram
+optionPopupEnabledFirst:
+  description: Option to show enabled scripts first in popup.
+  message: Ingeschakelde bovenaan
+optionPopupGroupDisabled:
+  description: Option to group disabled scripts in popup.
+  message: Uitgeschakelde scripts groeperen
+  touched: false
+optionPopupGroupRunAt:
+  description: Option to group scripts in popup shown only when sorting by execution order.
+  message: Groeperen op @run-at-niveau
+optionPopupHideDisabled:
+  description: Option to hide disabled scripts in popup.
+  message: Uitgeschakelde scripts verbergen
+  touched: false
+optionPopupShowDisabled:
+  description: Option to show disabled scripts in popup.
+  message: Uitgeschakelde scripts tonen
+  touched: false
+optionShowEnabledFirst:
+  description: Option to show enabled scripts first in alphabetical order.
+  message: Ingeschakelde scripts bovenaan
+optionUiTheme:
+  description: Label for the theme selector in Advanced settings.
+  message: 'UI Thema:'
+optionUiThemeAuto:
+  description: Name of a theme selector value in settings.
+  message: automatisch
+optionUiThemeDark:
+  description: Name of a theme selector value in settings.
+  message: donker
+optionUiThemeLight:
+  description: Name of a theme selector value in settings.
+  message: licht
+optionUpdate:
+  description: >-
+    Label of the update section in settings and notification title for script
+    updates.
+  message: Bijwerken
+popupSettings:
+  description: Item inside the popup's "⋮" menu
+  message: Pop-upinstellingen
+popupSettingsHint:
+  description: Hint for the config button in the popup
+  message: 'Rechtsklikken: pop-upinstellingen'
+readonly:
+  description: Text in the editor's header for non-editable scripts.
+  message: Alleen-lezen
+readonlyNote:
+  description: Warning when trying to type in the editor.
+  message: >-
+    Het automatisch bijgewerkte script is alleen-lezen, tenzij je updates
+    uitschakelt of bewerken toestaat.
+readonlyOpt:
+  description: Option label in the editor, displayed along with readonlyOptWarn.
+  message: Bewerken toestaan
+readonlyOptWarn:
+  description: Text next to readonlyOpt label in the editor.
+  message: (de volgende update overschrijft ze)
+reinstall:
+  description: Button to reinstall a script
+  message: Opnieuw installeren
+reloadTab:
+  description: Label of action to reload the tab
+  message: Tabblad herladen
+reloadTabTrackHint:
+  description: Tooltip for "Reload tab" checkbox when installer is tracking a local file.
+  message: >-
+    Schakel in om het actieve tabblad te herladen als er wijzigingen zijn
+    aangetroffen en het script overeenkomt met de url.
+removeAllScripts:
+  description: Button to remove all scripts
+  message: Alle scripts verwijderen
+  touched: false
+removeAllScriptsConfirm:
+  description: Confirmation shown after clicking the `Remove all scripts` button.
+  message: >-
+    Weet je zeker dat je alle scripts in de prullenbak wilt zetten?
+
+    Na verloop van tijd wordt de prullenbak geleegd. Ook kun je handmatig de
+    prullenbak legen.
+  touched: false
+searchCaseSensitive:
+  description: Option to perform a case-sensitive search
+  message: Hoofdlettergevoelig
+searchUseRegex:
+  description: Option to perform a regular expression search
+  message: Reguliere uitdrukkingen gebruiken
+sideMenuAbout:
+  description: 'Side menu: About'
+  message: Over
+sideMenuInstalled:
+  description: 'Side menu: Installed scripts'
+  message: Geïnstalleerde scripts
+sideMenuScripts:
+  description: 'Side menu: Scripts'
+  message: Scripts
+sideMenuSettings:
+  description: 'Side menu: Settings'
+  message: Instellingen
+skipScripts:
+  description: Title of the hotkey in the browser UI for customizing the hotkeys.
+  message: Tabblad herladen zonder gebruikersscripts
+skipScriptsMsg:
+  description: Message shown in the popup if the tab was reloaded without scripts.
+  message: >-
+    Je hebt gebruikersscripts uitgeschakeld op deze pagina. Schakel ze in door
+    te herladen of een link aan te klikken.
+sortOrder:
+  description: Label for the script sort order in dashboard, settings, popup settings.
+  message: Sorteervolgorde
+stopTracking:
+  description: Button in a script installation dialog when actually tracking local file.
+  message: Bijhouden stoppen
+titleBadgeColor:
+  description: Tooltip for option to set badge color.
+  message: Normale embleemkleur
+titleBadgeColorBlocked:
+  description: Tooltip for option to set badge color of non-injectable tabs.
+  message: >-
+    De kleur die wordt gebruikt als de code niet kan worden toegevoegd aan de
+    site (zwarte lijst of niet-ondersteund)
+titleSearchHint:
+  description: Hover title for search icon in dashboard.
+  message: |-
+    * Druk op <Enter> om de tekst toe te voegen aan de auto-aanvulgeschiedenis
+    * Ondersteunt reguliere uitdrukkingen: /re/ en /re/flags
+  touched: false
+titleSearchHintV2:
+  description: >-
+    Hover title for search icon in dashboard. Do not translate content between
+    <code>...</code>.
+  message: >-
+    * <kbd>Enter</kbd>toets om tekst toe te voegen aan automatisch aanvullen 
+
+    * Alle omstandigheden zijn hoofdletterongevoelig
+
+    * Spatiegescheiden omstandigheden kunnen worden gecombineerd
+
+    * Zoeken op metagegevens: <code>"Geweldig script" "Beschrijving"</code>
+
+    * Zoeken op labels: <code>#label1 #label2</code>
+
+    * Zoeken op scriptnaam: <code>name:"geweldige naam"</code>
+
+    * Zoeken op scriptcode: <code>code:"geweldige code"</code>
+
+    * Negatief zoeken: <code>!#label2 !name:"ongewenst"</code>
+
+    * Reguliere uitdrukkingen: <code>/\w+?/</code>, <code>/\w+?/gi</code>,
+    <code>name:/\w+?/</code>, <code>name+re:"\w+? met spatie"</code>
+toggleInjection:
+  description: Label for a keyboard shortcut.
+  message: Gebruikersscriptinjectie aan/uit
+trackEdits:
+  description: Button in a script installation dialog.
+  message: Externe bewerkingen bijhouden
+trackEditsNote:
+  description: Text shown in installer when starting to track a local file.
+  message: Houd deze pagina geopend om bewerkingen in het lokale bestand bij te houden
+updateListedCmd:
+  description: >-
+    Command to update scripts e.g. in the extension popup, number of scripts in
+    parentheses.
+  message: Scrips bĳwerken ($1)
+updateScript:
+  description: Button to update one script.
+  message: Bijwerken
+updateScriptForced:
+  description: Tooltip for the update icon.
+  message: >-
+    Rechtsklik of houd lang ingedrukt om een update (incl. afhankelijkheden) af
+    te dwingen
+updateScriptsAll:
+  description: Command/button to update all scripts.
+  message: Alle scripts bijwerken
+updateScriptsInTab:
+  description: Command/button to update scripts that run in current tab.
+  message: Scripts van huidig tabblad bijwerken
+valueLabelKey:
+  description: Label for key of a script value.
+  message: Sleutel (tekenreeks)
+valueLabelValue:
+  description: Label for value of a script value.
+  message: Waarde (in json-opmaak)
+valueLabelValueAll:
+  description: Label for input of entire script value storage.
+  message: Alle waarden (in json-opmaak)
+valueLabelValueOr:
+  description: $1 is "[x] string"
+  message: Waarde (in json-opmaak of $1)
+valueLabelValueString:
+  description: '$1 is the checkbox: "Value (serialized as JSON or [x] string)"'
+  message: $1 tekenreeks
+visitWebsite:
+  description: Label for link to open Violentmonkey website.
+  message: Violentmonkey-website
+  touched: false

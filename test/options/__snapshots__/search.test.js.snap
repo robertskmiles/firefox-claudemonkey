@@ -1,0 +1,374 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`createSearchRules 1`] = `
+{
+  "rules": [],
+  "tokens": [],
+}
+`;
+
+exports[`createSearchRules 2`] = `
+{
+  "rules": [
+    {
+      "negative": true,
+      "re": /c/i,
+      "scope": "tag",
+    },
+    {
+      "negative": false,
+      "re": /a\\|b/i,
+      "scope": "tag",
+    },
+    {
+      "negative": false,
+      "re": /hello/iu,
+      "scope": "",
+    },
+    {
+      "negative": false,
+      "re": /CaseSensitive/u,
+      "scope": "",
+    },
+    {
+      "negative": false,
+      "re": /CaseInsensitive/iu,
+      "scope": "",
+    },
+  ],
+  "tokens": [
+    {
+      "negative": false,
+      "parsed": "a",
+      "prefix": "#",
+      "raw": "a",
+    },
+    {
+      "negative": false,
+      "parsed": "b",
+      "prefix": "#",
+      "raw": "b",
+    },
+    {
+      "negative": true,
+      "parsed": "c",
+      "prefix": "#",
+      "raw": "c",
+    },
+    {
+      "negative": false,
+      "parsed": "hello",
+      "prefix": "",
+      "raw": "hello",
+    },
+    {
+      "negative": false,
+      "parsed": "CaseSensitive",
+      "prefix": "",
+      "raw": ""CaseSensitive"",
+    },
+    {
+      "negative": false,
+      "parsed": "CaseInsensitive",
+      "prefix": "",
+      "raw": "CaseInsensitive",
+    },
+  ],
+}
+`;
+
+exports[`createSearchRules 3`] = `
+{
+  "rules": [
+    {
+      "negative": false,
+      "re": /a-b\\|b/i,
+      "scope": "tag",
+    },
+    {
+      "negative": false,
+      "re": /hello/iu,
+      "scope": "name",
+    },
+    {
+      "negative": false,
+      "re": /world/iu,
+      "scope": "",
+    },
+  ],
+  "tokens": [
+    {
+      "negative": false,
+      "parsed": "a-b",
+      "prefix": "#",
+      "raw": "a-b",
+    },
+    {
+      "negative": false,
+      "parsed": "b",
+      "prefix": "#",
+      "raw": "b",
+    },
+    {
+      "negative": false,
+      "parsed": "hello",
+      "prefix": "name:",
+      "raw": "hello",
+    },
+    {
+      "negative": false,
+      "parsed": "world",
+      "prefix": "",
+      "raw": "world",
+    },
+  ],
+}
+`;
+
+exports[`createSearchRules 4`] = `
+{
+  "rules": [
+    {
+      "negative": false,
+      "re": /a\\\\\\.b\\|b/i,
+      "scope": "tag",
+    },
+    {
+      "negative": false,
+      "re": /hello world/u,
+      "scope": "name",
+    },
+  ],
+  "tokens": [
+    {
+      "negative": false,
+      "parsed": "a.b",
+      "prefix": "#",
+      "raw": "a.b",
+    },
+    {
+      "negative": false,
+      "parsed": "b",
+      "prefix": "#",
+      "raw": "b",
+    },
+    {
+      "negative": false,
+      "parsed": "hello world",
+      "prefix": "name:",
+      "raw": ""hello world"",
+    },
+  ],
+}
+`;
+
+exports[`createSearchRules 5`] = `
+{
+  "rules": [
+    {
+      "negative": false,
+      "re": /a\\\\\\.b\\|b/i,
+      "scope": "tag",
+    },
+    {
+      "negative": false,
+      "re": /hello world/iu,
+      "scope": "name",
+    },
+  ],
+  "tokens": [
+    {
+      "negative": false,
+      "parsed": "a.b",
+      "prefix": "#",
+      "raw": "a.b",
+    },
+    {
+      "negative": false,
+      "parsed": "b",
+      "prefix": "#",
+      "raw": "b",
+    },
+    {
+      "negative": false,
+      "parsed": "hello world",
+      "prefix": "name+re:",
+      "raw": ""hello world"",
+    },
+  ],
+}
+`;
+
+exports[`createSearchRules 6`] = `
+{
+  "rules": [
+    {
+      "negative": false,
+      "re": /a\\\\\\.b\\|b/i,
+      "scope": "tag",
+    },
+    {
+      "negative": true,
+      "re": /hello world/iu,
+      "scope": "name",
+    },
+  ],
+  "tokens": [
+    {
+      "negative": false,
+      "parsed": "a.b",
+      "prefix": "#",
+      "raw": "a.b",
+    },
+    {
+      "negative": false,
+      "parsed": "b",
+      "prefix": "#",
+      "raw": "b",
+    },
+    {
+      "negative": true,
+      "parsed": "hello world",
+      "prefix": "name+re:",
+      "raw": ""hello world"",
+    },
+  ],
+}
+`;
+
+exports[`createSearchRules 7`] = `
+{
+  "rules": [
+    {
+      "negative": false,
+      "re": /#a\\\\\\.b/u,
+      "scope": "",
+    },
+    {
+      "negative": true,
+      "re": /#b/u,
+      "scope": "",
+    },
+  ],
+  "tokens": [
+    {
+      "negative": false,
+      "parsed": "#a.b",
+      "prefix": "",
+      "raw": ""#a.b"",
+    },
+    {
+      "negative": true,
+      "parsed": "#b",
+      "prefix": "",
+      "raw": ""#b"",
+    },
+  ],
+}
+`;
+
+exports[`createSearchRules 8`] = `
+{
+  "rules": [
+    {
+      "negative": false,
+      "re": /\\\\d\\+\\\\D\\+/u,
+      "scope": "",
+    },
+    {
+      "negative": false,
+      "re": /\\\\d\\+\\\\D\\+/u,
+      "scope": "code",
+    },
+    {
+      "negative": false,
+      "re": /\\\\/not/iu,
+      "scope": "",
+    },
+    {
+      "negative": false,
+      "re": /regexp\\\\//iu,
+      "scope": "",
+    },
+  ],
+  "tokens": [
+    {
+      "negative": false,
+      "parsed": "/\\d+\\D+/",
+      "prefix": "",
+      "raw": "/\\d+\\D+/",
+    },
+    {
+      "negative": false,
+      "parsed": "/\\d+\\D+/u",
+      "prefix": "code:",
+      "raw": "/\\d+\\D+/u",
+    },
+    {
+      "negative": false,
+      "parsed": "/not",
+      "prefix": "",
+      "raw": "/not",
+    },
+    {
+      "negative": false,
+      "parsed": "regexp/",
+      "prefix": "",
+      "raw": "regexp/",
+    },
+  ],
+}
+`;
+
+exports[`createSearchRules 9`] = `
+{
+  "rules": [
+    {
+      "negative": false,
+      "re": /foobar/iu,
+      "scope": "",
+    },
+    {
+      "negative": false,
+      "re": /foobar/iu,
+      "scope": "",
+    },
+    {
+      "negative": false,
+      "re": /foobar/iu,
+      "scope": "name",
+    },
+    {
+      "negative": false,
+      "re": /foobar/iu,
+      "scope": "code",
+    },
+  ],
+  "tokens": [
+    {
+      "negative": false,
+      "parsed": "foobar",
+      "prefix": "",
+      "raw": "foobar",
+    },
+    {
+      "negative": false,
+      "parsed": "foobar",
+      "prefix": "re:",
+      "raw": "foobar",
+    },
+    {
+      "negative": false,
+      "parsed": "foobar",
+      "prefix": "name+re:",
+      "raw": "foobar",
+    },
+    {
+      "negative": false,
+      "parsed": "foobar",
+      "prefix": "code+re:",
+      "raw": "foobar",
+    },
+  ],
+}
+`;

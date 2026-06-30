@@ -1,0 +1,4 @@
+{
+  "claudeBin": "/path/to/claude",
+  "claudeConfigDir": "/path/to/.claude"
+}

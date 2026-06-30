@@ -1,0 +1,164 @@
+import '@/common/browser';
+import {
+  formatByteLength, getLocaleString, getScriptUpdateUrl, makePause, sendCmdDirectly, trueJoin,
+} from '@/common';
+import { kOrigTag, kTag } from '@/common/consts';
+import handlers from '@/common/handlers';
+import { loadScriptIcon } from '@/common/load-script-icon';
+import options from '@/common/options';
+import { render } from '@/common/ui';
+import '@/common/ui/favicon';
+import '@/common/ui/style';
+import {
+  formatSizesStr, kComment, kDescription, kName, kStorageSize, SIZE_TITLES, store, updateTags,
+} from './utils';
+import App from './views/app';
+
+const NON_WS_RE = /\S/;
+let updateThrottle;
+
+loadData();
+render(App);
+
+/**
+ * @param {UIScript} script
+ * @param {number[]} sizes
+ * @param {string} [code]
+ */
+function initScript(script, sizes, code) {
+  const $cache = script.$cache ??= {};
+  const { custom, meta } = script;
+  const localeName = getLocaleString(meta, kName);
+  const desc = [
+    meta[kName],
+    localeName,
+    meta[kDescription],
+    getLocaleString(meta, kDescription),
+    custom[kName],
+    custom[kDescription],
+    custom[kComment],
+  ]::trueJoin('\n');
+  const name = custom[kName] || localeName;
+  let total = 0;
+  let str = '';
+  sizes.forEach((val, i) => {
+    total += val;
+    if (val) str += `${SIZE_TITLES[i]}: ${formatByteLength(val)}\n`;
+  });
+  $cache.desc = desc;
+  $cache.name = name;
+  $cache.lowerName = name.toLocaleLowerCase();
+  $cache.size = formatByteLength(total, true).replace(' ', '');
+  $cache.sizes = formatSizesStr(str);
+  $cache.sizeNum = total;
+  $cache.sizesNum = sizes;
+  $cache[kStorageSize] = sizes[2];
+  $cache[kTag] = getUniqTags(script, custom, meta);
+  if (code) $cache.code = code;
+  script.$canUpdate = getScriptUpdateUrl(script)
+    && (script.config.shouldUpdate ? 1 : -1 /* manual */);
+  loadScriptIcon(script, store, true, $cache);
+}
+
+export function loadData() {
+  const id = +store.route.paths[1];
+  return requestData(id)
+  .catch(id && (() => requestData()));
+  /* Catching in order to retry without an id if the id is invalid.
+   * Errors will be shown in showUnhandledError. */
+}
+
+async function requestData(id) {
+  const [data] = await Promise.all([
+    sendCmdDirectly('GetData', { id, sizes: true }, { retry: true }),
+    options.ready,
+  ]);
+  const { [SCRIPTS]: allScripts, sizes, ...auxData } = data;
+  Object.assign(store, auxData); // initScripts needs `cache` in store
+  const scripts = [];
+  const removedScripts = [];
+  // modifying scripts without triggering reactivity
+  allScripts.forEach((script, i) => {
+    initScript(script, sizes[i]);
+    (script.config.removed ? removedScripts : scripts).push(script);
+  });
+  // now we can render
+  store.scripts = scripts;
+  store.removedScripts = removedScripts;
+  if (store.loaded !== 'all') store.loaded = !!id || 'all';
+}
+
+/**
+ * @param {VMScript} script
+ * @param {VMScript['custom']} [custom]
+ * @param {VMScript['meta']} [meta]
+ * when omitted, author @tag is always used and a joined single string is returned
+ * @return {string[] | string}
+ */
+function getUniqTags(script, custom = script.custom, meta) {
+  const authorTags = (!meta || custom[kOrigTag]) && (meta || script.meta)[kTag] || [];
+  const userTags = custom[kTag] || [];
+  const tags = !authorTags.length ? userTags
+    : !userTags.length ? authorTags
+      : [...authorTags, ...userTags];
+  const uniqTags = tags.length ? [...new Set(tags.filter(NON_WS_RE.test, NON_WS_RE))] : tags;
+  return meta ? uniqTags : uniqTags.join('\n');
+}
+
+Object.assign(handlers, {
+  ScriptsUpdated() {
+    loadData();
+  },
+  UpdateSync(data) {
+    store.sync = data;
+  },
+  async UpdateScript({ update, where, code } = {}) {
+    if (!update) return;
+    if (updateThrottle
+    || (updateThrottle = store.batch)
+    && (updateThrottle = Promise.race([updateThrottle, makePause(500)]))) {
+      await updateThrottle;
+      updateThrottle = null;
+    }
+    const i1 = store.scripts.findIndex(item => item.props.id === where.id);
+    const i2 = store.removedScripts.findIndex(item => item.props.id === where.id);
+    // JS engines like V8 deoptimize when accessing an array element out of bounds
+    const oldScript = i1 >= 0 ? store.scripts[i1] : i2 >= 0 ? store.removedScripts[i2] : null;
+    const script = oldScript
+      || update.meta && store.canRenderScripts && {}; // a new script was just saved or installed
+    if (!script) return; // We're in editor that doesn't have data for all scripts
+    const removed = update.config?.removed;
+    const oldTags = oldScript ? getUniqTags(oldScript) : '';
+    const [sizes] = await sendCmdDirectly('GetSizes', [where.id]);
+    Object.assign(script, update);
+    if (script.error && !update.error) script.error = null;
+    initScript(script, sizes, code);
+    if (removed != null) {
+      if (removed) {
+        // Note that we don't update store.scripts even if a script is removed,
+        // because we want to keep the removed script there to allow the user
+        // to undo an accidental removal.
+        // We will update store.scripts when the installed list is rerendered.
+        store.needRefresh = true;
+      } else {
+        // Restored from the recycle bin.
+        store.removedScripts = store.removedScripts.filter(rs => rs.props.id !== where.id);
+      }
+    }
+    // Update the new list
+    const i = script.config.removed ? i2 : i1;
+    const area = script.config.removed ? 'removedScripts' : SCRIPTS;
+    const list = [...store[area]];
+    if (i < 0) {
+      script.message = '';
+      list.push(script);
+    }
+    store[area] = list;
+    if (store.tags && (removed != null ? oldTags : oldTags !== getUniqTags(script))) {
+      updateTags();
+    }
+  },
+  RemoveScripts(ids) {
+    store.removedScripts = store.removedScripts.filter(script => !ids.includes(script.props.id));
+  },
+});

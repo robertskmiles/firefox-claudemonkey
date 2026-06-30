@@ -1,0 +1,16 @@
+/dist/
+node_modules/
+*.log
+.eslintcache
+/stats.json
+/tmp/
+/dist-assets/
+.eslintcache
+.env
+
+# ClaudeMonkey: machine-specific bridge config
+bridge/config.json
+
+# web-ext persistent dev profile
+/.web-ext-profile/
+/web-ext-artifacts/
