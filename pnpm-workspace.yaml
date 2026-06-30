@@ -4,12 +4,6 @@ allowBuilds:
   vueleton: false
 
 overrides:
-  # The open-ended `minimatch@<3.1.4: '>=3.1.4'` security override below resolves
-  # multimatch's `minimatch@^3.0.4` to the latest minimatch (pure ESM, no default
-  # export), which breaks `import minimatch from 'minimatch'` in multimatch@6 and
-  # thus web-ext's reload watcher under Node >=24. Pin it to 3.1.5: still satisfies
-  # the >=3.1.4 security floor, but keeps the CommonJS default export.
-  multimatch>minimatch: 3.1.5
   '@babel/helpers@<7.26.10': '>=7.26.10'
   '@babel/plugin-transform-modules-systemjs@>=7.12.0 <=7.29.3': '>=7.29.4'
   '@babel/traverse@<7.23.2': '>=7.23.2'

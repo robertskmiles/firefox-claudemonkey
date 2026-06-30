@@ -10,7 +10,3 @@ node_modules/
 
 # ClaudeMonkey: machine-specific bridge config
 bridge/config.json
-
-# web-ext persistent dev profile
-/.web-ext-profile/
-/web-ext-artifacts/

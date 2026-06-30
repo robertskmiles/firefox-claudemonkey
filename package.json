@@ -6,8 +6,6 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky",
     "dev": "gulp dev",
-    "start:firefox": "web-ext run",
-    "dev:firefox": "run-p dev start:firefox",
     "build": "cross-env NODE_ENV=production gulp build",
     "build:selfHosted": "cross-env TARGET=selfHosted BETA=1 run-s build",
     "analyze": "cross-env RUN_ENV=analyze run-s build",
@@ -93,7 +91,6 @@
     "vinyl": "^3.0.1",
     "vue-loader": "^17.4.2",
     "vue-tsc": "^3.3.2",
-    "web-ext": "^10.4.0",
     "webpack": "^5.107.2",
     "webpack-bundle-analyzer": "^5.3.0",
     "webpack-cli": "^7.0.3"
