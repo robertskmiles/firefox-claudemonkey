@@ -8,5 +8,6 @@ node_modules/
 .eslintcache
 .env
 
-# ClaudeMonkey: machine-specific bridge config
+# ClaudeMonkey: machine-specific bridge config + generated launcher
 bridge/config.json
+bridge/host-launcher.sh
