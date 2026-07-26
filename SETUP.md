@@ -17,17 +17,17 @@ bash bridge/install.sh   # registers the native-messaging host with Firefox
 `~/.mozilla/native-messaging-hosts/claudemonkey.bridge.json` (allowlisted to the extension
 id `claudemonkey@local`).
 
-### Using a specific Claude account profile (e.g. `claude-robert`)
+### Using a specific Claude account profile
 
-Shell aliases like `claude-robert` (which run `claude` with a custom `CLAUDE_CONFIG_DIR`)
-aren't visible to the native-messaging host, since Firefox launches it via `spawn`, not a
-shell. To run generations under a specific account profile, set `claudeConfigDir` in
+Shell aliases that run `claude` with a custom `CLAUDE_CONFIG_DIR` aren't visible to the
+native-messaging host, since Firefox launches it via `spawn`, not a shell. To run
+generations under a specific account profile, set `claudeConfigDir` in
 `bridge/config.json` (host.js exports it as `CLAUDE_CONFIG_DIR` for the `claude` process):
 
 ```json
 {
-  "claudeBin": "/home/rob/.local/bin/claude",
-  "claudeConfigDir": "/home/rob/.claude-accounts/robert/.claude"
+  "claudeBin": "/home/you/.local/bin/claude",
+  "claudeConfigDir": "/home/you/.claude-accounts/work/.claude"
 }
 ```
 

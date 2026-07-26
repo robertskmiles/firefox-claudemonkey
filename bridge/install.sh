@@ -31,7 +31,7 @@ fi
 echo "Using claude binary: $CLAUDE_BIN"
 
 # 1b. Optional account profile (CLAUDE_CONFIG_DIR). The native host can't see shell
-# aliases like `claude-robert`, so we record the profile dir explicitly and host.js
+# aliases that set a custom profile, so we record the profile dir explicitly and host.js
 # exports it as CLAUDE_CONFIG_DIR when launching claude. Set CLAUDEMONKEY_CLAUDE_CONFIG_DIR
 # (or your current CLAUDE_CONFIG_DIR) to use a non-default profile; leave empty for ~/.claude.
 CLAUDE_CONFIG_DIR_VAL="${CLAUDEMONKEY_CLAUDE_CONFIG_DIR:-${CLAUDE_CONFIG_DIR:-}}"

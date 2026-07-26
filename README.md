@@ -4,8 +4,9 @@
 > (MIT, by Gerald). It keeps the full userscript manager but makes the default action a
 > textbox: you describe how you want the current site changed, and a locally-running
 > **Claude Code** instance writes or edits the userscript for that site (using your Claude
-> subscription via a native-messaging bridge — see [`bridge/`](bridge/)). All credit for the
-> underlying userscript engine goes to the Violentmonkey authors; the original README follows.
+> subscription via a native-messaging bridge — see [`bridge/`](bridge/)). Setup and usage
+> instructions are in [SETUP.md](SETUP.md). All credit for the underlying userscript engine
+> goes to the Violentmonkey authors; the original README follows.
 
 ---
 
@@ -23,10 +24,6 @@ More details can be found [here](https://violentmonkey.github.io/).
 Join our Discord server:
 
 [![Discord](https://img.shields.io/discord/995346102003965952?label=discord&logo=discord&logoColor=white&style=for-the-badge)](https://discord.gg/XHtUNSm6Xc)
-
-## Automated Builds for Testers
-
-A test build is generated automatically for changes between beta releases. It can be installed as an unpacked extension in Chrome and Chromium-based browsers or as a temporary extension in Firefox. It's likely to have bugs so do an export in Violentmonkey settings first. This zip is available only if you're logged-in on GitHub site. Open an entry in the [CI workflows](https://github.com/violentmonkey/violentmonkey/actions/workflows/ci.yml) table and click the `Violentmonkey-...` link at the bottom to download it.
 
 ## Workflows
 
@@ -53,8 +50,6 @@ $ pnpm run ci
 
 ### Build
 
-To release a new version, we must build the assets and upload them to web stores.
-
 ``` sh
 # Build for normal releases
 $ pnpm build
@@ -62,10 +57,6 @@ $ pnpm build
 # Build for self-hosted release that has an update_url
 $ pnpm build:selfHosted
 ```
-
-### Release
-
-See [RELEASE](RELEASE.md) for the release flow.
 
 ## Related Projects
 

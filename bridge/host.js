@@ -40,7 +40,7 @@ function loadConfig() {
 }
 const config = loadConfig();
 const CLAUDE_BIN = process.env.CLAUDEMONKEY_CLAUDE_BIN || config.claudeBin || 'claude';
-// Optional Claude config dir, mirroring the `claude-robert` alias which runs the
+// Optional Claude config dir, mirroring shell aliases that run the
 // `claude` binary against a separate account profile. The native host can't see
 // shell aliases (it's launched via spawn, not a shell), so we set CLAUDE_CONFIG_DIR
 // explicitly instead. Empty/unset => use Claude Code's default (~/.claude).

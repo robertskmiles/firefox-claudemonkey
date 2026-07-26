@@ -1,15 +1,13 @@
 ---
 name: Bug report
-about: For bugs that also exist in beta
+about: Report a problem with ClaudeMonkey
 title: "[BUG] "
 labels: bug
 assignees: ''
 
 ---
 
-<!-- Please search the existing issues first as the problem may be already reported.
-     Please verify the bug is not fixed in the latest beta:
-     https://github.com/violentmonkey/violentmonkey/releases -->
+<!-- Please search the existing issues first as the problem may be already reported. -->
 
 ### Sequence of actions: <!-- e.g. install userscript, open example.com, click page -->
 1.
