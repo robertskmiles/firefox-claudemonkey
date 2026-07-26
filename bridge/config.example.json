@@ -1,4 +1,8 @@
 {
   "claudeBin": "/path/to/claude",
-  "claudeConfigDir": "/path/to/.claude"
+  "claudeConfigDir": "/path/to/.claude",
+  "env": {
+    "CLAUDE_CODE_OAUTH_TOKEN": "credentials your shell has but Firefox's GUI session doesn't"
+  },
+  "stallTimeoutMs": 120000
 }

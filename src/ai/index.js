@@ -49,10 +49,23 @@ function showError(msg) {
 async function submit() {
   const prompt = promptEl.value.trim();
   if (!prompt) { promptEl.focus(); return; }
+  const btn = $('cm-go');
+  btn.disabled = true;
+  btn.textContent = 'Starting…';
   // Open the sidebar first, while we still have the user gesture.
   try { await browser.sidebarAction.open(); } catch { /* not fatal */ }
-  // Fire the job in the background; it keeps running even after the popup closes.
-  sendCmdDirectly('AIGenerate', { prompt }).catch(err => showError(String(err)));
+  // Wait for the job to be registered before closing. AIGenerate returns as soon as the
+  // job exists (capture and generation continue in the background), and until it does
+  // this popup is the only place a startup failure can be shown — closing first would
+  // hand the error to a window that no longer exists.
+  try {
+    await sendCmdDirectly('AIGenerate', { prompt });
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Ask Claude';
+    showError(String((err && err.message) || err));
+    return;
+  }
   window.close();
 }
 

@@ -45,6 +45,19 @@ const CLAUDE_BIN = process.env.CLAUDEMONKEY_CLAUDE_BIN || config.claudeBin || 'c
 // shell aliases (it's launched via spawn, not a shell), so we set CLAUDE_CONFIG_DIR
 // explicitly instead. Empty/unset => use Claude Code's default (~/.claude).
 const CLAUDE_CONFIG_DIR = process.env.CLAUDEMONKEY_CLAUDE_CONFIG_DIR || config.claudeConfigDir || '';
+// Extra environment for the `claude` process. Firefox launches this host from the GUI
+// session, so nothing set by your shell profile is present — including credentials kept
+// in an env var (CLAUDE_CODE_OAUTH_TOKEN and friends), which is why `claude` can be
+// logged in in a terminal and "Not logged in" here. install.sh captures the names listed
+// in CLAUDEMONKEY_ENV_PASSTHROUGH into config.json's `env`. ANTHROPIC_API_KEY is stripped
+// after this is applied, so it can never be reintroduced through this route.
+const CLAUDE_ENV = (config.env && typeof config.env === 'object') ? config.env : {};
+// If `claude` emits nothing at all for this long, treat it as wedged rather than leaving
+// the extension waiting forever: something invisible from here is blocking it (a login or
+// keychain prompt, a hung network call). 0 disables the timeout.
+const STALL_TIMEOUT_MS = Number(
+  process.env.CLAUDEMONKEY_STALL_MS || config.stallTimeoutMs || 120000,
+);
 
 // ----------------------------------------------------------------------------
 // Native-messaging framing
@@ -299,11 +312,11 @@ routine successes — and it is separate from your reply to the user.
   ];
   if (msg.sessionId) args.push('--resume', String(msg.sessionId));
 
-  const env = { ...process.env };
-  delete env.ANTHROPIC_API_KEY; // never bypass the subscription
+  const env = { ...process.env, ...CLAUDE_ENV };
+  delete env.ANTHROPIC_API_KEY; // never bypass the subscription (not even via config.env)
   if (CLAUDE_CONFIG_DIR) env.CLAUDE_CONFIG_DIR = CLAUDE_CONFIG_DIR; // run under the chosen account profile
 
-  const state = { session: msg.sessionId || null, result: '', cost: 0, edits: 0, transcript: [] };
+  const state = { session: msg.sessionId || null, result: '', cost: 0, edits: 0, transcript: [], error: null };
   let child;
   try {
     child = spawn(CLAUDE_BIN, args, { cwd: dir, env, stdio: ['ignore', 'pipe', 'pipe'] });
@@ -316,22 +329,23 @@ routine successes — and it is separate from your reply to the user.
   rl.on('line', line => {
     line = line.trim();
     if (!line) return;
+    bumpStall();
     let ev;
     try { ev = JSON.parse(line); } catch { return; }
     relay(ev, requestId, state);
   });
 
   let stderr = '';
-  child.stderr.on('data', d => { stderr += d.toString(); });
+  child.stderr.on('data', d => { stderr += d.toString(); bumpStall(); });
 
-  child.on('error', err => {
-    sendMessage({ type: 'done', requestId, error: `Failed to launch claude (${CLAUDE_BIN}): ${err.message}` });
-  });
-
-  child.on('close', code => {
+  /** Send the single `done` for this request, whoever gets there first. */
+  let replied = false;
+  function finish(code, error) {
+    if (replied) return;
+    replied = true;
+    clearTimeout(stallTimer);
     let script = null;
     try { script = fs.readFileSync(scriptPath, 'utf8'); } catch {}
-    const error = code ? (stderr.slice(-2000) || `claude exited with code ${code}`) : undefined;
     writeRunLog(msg, domain, state, { script, exitCode: code, error });
     sendMessage({
       type: 'done',
@@ -344,6 +358,45 @@ routine successes — and it is separate from your reply to the user.
       sawEdit: state.edits > 0,
       error,
     });
+  }
+
+  const withStderr = m => {
+    const tail = stderr.trim().slice(-2000);
+    return tail ? `${m}\n\nclaude stderr:\n${tail}` : m;
+  };
+
+  // Watchdog: any output resets it; running out means claude is stuck on something we
+  // cannot see or answer from here, so report immediately and kill it. We deliberately
+  // don't wait for the process to close first — a wedged child can leave a grandchild
+  // holding the stdio pipes open, in which case 'close' never fires and we'd hang on
+  // exactly the case this exists to catch.
+  let stallTimer = null;
+  function bumpStall() {
+    clearTimeout(stallTimer);
+    if (!(STALL_TIMEOUT_MS > 0)) return;
+    stallTimer = setTimeout(() => {
+      finish(null, withStderr(
+        `claude produced no output for ${Math.round(STALL_TIMEOUT_MS / 1000)}s and was terminated.`
+        + ' It is most likely blocked on something that cannot be answered from here —'
+        + ' a login/credential prompt, or on macOS a keychain authorization dialog.'
+        + ' Reproduce it outside Firefox with: node bridge/test-client.js "test" example.com',
+      ));
+      try { child.kill('SIGTERM'); } catch { /* already gone */ }
+      setTimeout(() => { try { child.kill('SIGKILL'); } catch { /* already gone */ } }, 2000).unref();
+    }, STALL_TIMEOUT_MS);
+  }
+  bumpStall();
+
+  child.on('error', err => {
+    finish(null, `Failed to launch claude (${CLAUDE_BIN}): ${err.message}`);
+  });
+
+  child.on('close', code => {
+    let error;
+    // A failed run can still exit 0, so the result event outranks the exit code.
+    if (state.error) error = withStderr(state.error);
+    else if (code) error = stderr.trim().slice(-2000) || `claude exited with code ${code}`;
+    finish(code, error);
   });
 }
 
@@ -419,5 +472,12 @@ function relay(ev, requestId, state) {
   } else if (ev.type === 'result') {
     state.result = ev.result || state.result;
     state.cost = ev.total_cost_usd || state.cost;
+    // Some failures (a bad/expired credential, for one) are reported here while the
+    // process still exits 0 and writes nothing to stderr, so don't trust the exit code
+    // alone — otherwise "Not logged in · Please run /login" arrives as a cheerful
+    // success whose "userscript" is the untouched scaffold.
+    if (ev.is_error) {
+      state.error = String(ev.result || ev.api_error_status || 'claude reported an error').trim();
+    }
   }
 }
