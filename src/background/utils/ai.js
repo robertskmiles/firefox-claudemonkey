@@ -33,9 +33,20 @@ const MAX_ASSET_BYTES = 512 * 1024;            // per-file cap (truncated past t
 const MAX_ASSETS_TOTAL_BYTES = 4 * 1024 * 1024; // combined cap across all assets
 const ASSET_FETCH_TIMEOUT_MS = 8000;           // per-file fetch timeout
 
+// Bridge liveness. postMessage to a native host is fire-and-forget, so without these a
+// host that never answers is indistinguishable from a slow one. The two pass timeouts sit
+// deliberately *above* host.js's own stall watchdog (300s by default) so that when the
+// host is alive its more specific diagnostic wins; these only catch a host that isn't
+// answering at all. Keep that ordering if you tune either side.
+const BRIDGE_PING_TIMEOUT_MS = 8000;    // host must answer a ping this fast
+const PASS_FIRST_EVENT_MS = 330000;     // ...then produce its first event
+const PASS_IDLE_TIMEOUT_MS = 660000;    // ...and keep going at least this often
+
 let port;
 /** @type {Map<string, object>} requestId -> job */
 const jobs = new Map();
+/** @type {Map<string, {ok: function, fail: function, timer: *}>} in-flight pings */
+const pings = new Map();
 /** @type {Map<string, string>} domain -> claude sessionId (conversation memory) */
 const sessions = new Map();
 let activeRequestId = null;
@@ -139,9 +150,44 @@ function ensurePort() {
         broadcast(job, { type: 'done', error: job.error });
       }
     }
+    for (const p of [...pings.values()]) p.fail(new Error(emsg));
     port = null;
   });
   return port;
+}
+
+/**
+ * Ask the host to identify itself before sending it a request. A dead or unreachable
+ * host is otherwise indistinguishable from a slow one: `postMessage` is fire-and-forget,
+ * so without this a host that never answers just leaves the sidebar spinning. The reply
+ * also reports which `claude` binary and profile the host resolved, which is worth
+ * showing — it's the #1 thing that differs between your shell and Firefox's environment.
+ */
+function pingBridge() {
+  return new Promise((resolve, reject) => {
+    const id = `ping-${Date.now()}-${Math.random()}`;
+    const entry = {
+      ok: msg => { clearTimeout(entry.timer); pings.delete(id); resolve(msg); },
+      fail: err => { clearTimeout(entry.timer); pings.delete(id); reject(err); },
+      timer: null,
+    };
+    entry.timer = setTimeout(() => {
+      entry.fail(new Error(
+        `The native bridge did not respond within ${Math.round(BRIDGE_PING_TIMEOUT_MS / 1000)}s.`
+        + ' The host manifest is registered (or connecting would have failed outright), so'
+        + ' the host process is likely starting and dying, or never starting. Check that'
+        + ' the path in claudemonkey.bridge.json exists and is executable, and that `node`'
+        + " is on the PATH Firefox itself inherits — a GUI-launched Firefox doesn't see"
+        + ' your shell profile, so a Homebrew/nvm/nix node is typically missing. Re-run'
+        + ' bridge/install.sh: it now pins an absolute node path, which fixes that case.'));
+    }, BRIDGE_PING_TIMEOUT_MS);
+    pings.set(id, entry);
+    try {
+      ensurePort().postMessage({ type: 'ping', requestId: id });
+    } catch (e) {
+      entry.fail(e);
+    }
+  });
 }
 
 function broadcast(job, event) {
@@ -149,8 +195,12 @@ function broadcast(job, event) {
 }
 
 function onPortMessage(msg) {
+  const ping = msg && msg.type === 'pong' && pings.get(msg.requestId);
+  if (ping) { ping.ok(msg); return; }
   const job = msg && jobs.get(msg.requestId);
   if (!job) return;
+  // Any traffic for this job means the host is alive and working: hold off the watchdog.
+  if (job._bumpPass) job._bumpPass();
   switch (msg.type) {
     case 'session':
       if (msg.sessionId) {
@@ -317,11 +367,6 @@ addOwnCommands({
     let domain;
     try { domain = new URL(url).hostname; } catch { domain = 'unknown'; }
 
-    const [context, currentScript] = await Promise.all([
-      captureContext(tab),
-      getCurrentCode(domain),
-    ]);
-
     const requestId = (crypto.randomUUID && crypto.randomUUID()) || `r${Date.now()}-${Math.random()}`;
     const job = {
       requestId,
@@ -332,19 +377,32 @@ addOwnCommands({
       prompt,
       status: 'running',
       events: [{ type: 'user', text: prompt }],
-      script: currentScript || null,
+      script: null,
       sessionId: sessions.get(domain) || null,
       error: null,
       cost: 0,
       _resolveDone: null,
     };
+    // Register and publish the job BEFORE any of the fallible work below. The sidebar
+    // renders whatever job exists, so a job that doesn't exist yet is indistinguishable
+    // from one that is still working — and the popup, our only other error channel,
+    // closes itself moments after calling us. Anything that goes wrong from here on
+    // lands on the job and is therefore visible.
     jobs.set(requestId, job);
     activeRequestId = requestId;
+    broadcast(job, { type: 'progress' });
 
-    // Run the write -> apply -> observe -> fix loop in the background; the command
-    // returns immediately and the UI follows along via broadcast AIEvents.
-    runVerifyLoop(job, { prompt, context, currentScript }).catch(e => {
-      finalize(job, { error: String((e && e.message) || e) });
+    // Page capture + the write -> apply -> observe -> fix loop run in the background;
+    // the command returns immediately and the UI follows along via broadcast AIEvents.
+    (async () => {
+      const currentScript = await getCurrentCode(domain);
+      job.script = currentScript || null;
+      broadcastNote(job, `Capturing ${domain}…`);
+      const context = await captureContext(tab);
+      broadcastNote(job, `Done capturing ${domain}.`);
+      await runVerifyLoop(job, { prompt, context, currentScript });
+    })().catch(e => {
+      finalize(job, { error: String((e && (e.stack || e.message)) || e) });
     });
 
     return jobHeader(job);
@@ -364,8 +422,28 @@ addOwnCommands({
 /** Send one generate request and resolve with the bridge's `done` message. */
 function runPass(job, { prompt, domSnapshot, domSnapshotStyled, assets, screenshot, currentScript, sessionId }) {
   return new Promise(resolve => {
-    job._resolveDone = resolve;
-    ensurePort().postMessage({
+    let timer;
+    const settle = res => {
+      clearTimeout(timer);
+      job._bumpPass = null;
+      job._resolveDone = null;
+      resolve(res);
+    };
+    const arm = (ms, why) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => settle({ error: why }), ms);
+    };
+    job._resolveDone = settle;
+    job._bumpPass = () => arm(PASS_IDLE_TIMEOUT_MS,
+      `The bridge went quiet for ${Math.round(PASS_IDLE_TIMEOUT_MS / 60000)} minutes mid-run.`);
+    arm(PASS_FIRST_EVENT_MS,
+      `The bridge accepted the request but sent nothing back within`
+      + ` ${Math.round(PASS_FIRST_EVENT_MS / 1000)}s — not even the stall report host.js`
+      + ' makes when claude itself is wedged, so the host process is probably not'
+      + ' handling messages. Run `node bridge/test-client.js "test" example.com` to'
+      + ' exercise the same path outside Firefox.');
+
+    const payload = {
       type: 'generate',
       requestId: job.requestId,
       domain: job.domain,
@@ -377,7 +455,21 @@ function runPass(job, { prompt, domSnapshot, domSnapshotStyled, assets, screensh
       screenshot,
       currentScript,
       sessionId: sessionId || null,
-    });
+    };
+    // Page context can run to many megabytes; report it, since an oversized message is
+    // one of the few ways postMessage can fail without any error reaching us. Summing the
+    // big fields rather than stringifying the payload: this is a diagnostic, not worth
+    // serializing several megabytes twice (the port is about to do it for real).
+    const len = s => (typeof s === 'string' ? s.length : 0);
+    const mb = (len(domSnapshot) + len(domSnapshotStyled) + len(screenshot)
+      + len(currentScript) + len(prompt)
+      + (assets || []).reduce((n, a) => n + len(a && a.content), 0)) / 1048576;
+    broadcastNote(job, `Sending ~${mb.toFixed(1)} MB of page context to Claude…`);
+    try {
+      ensurePort().postMessage(payload);
+    } catch (e) {
+      settle({ error: `Could not send the request to the bridge: ${(e && e.message) || e}` });
+    }
   });
 }
 
@@ -389,6 +481,12 @@ async function runVerifyLoop(job, { prompt, context, currentScript }) {
   const assetsMeta = (context.assets || []).map(
     ({ name, url, type, truncated, error }) => ({ name, url, type, truncated, error }),
   );
+  // Confirm the host is actually there and see which claude it resolved, before handing
+  // it a multi-megabyte request. A failure here throws and is reported by the caller.
+  const pong = await pingBridge();
+  broadcastNote(job, `Bridge ready — claude: ${pong.claudeBin || '(default)'}`
+    + `${pong.claudeConfigDir ? `, profile: ${pong.claudeConfigDir}` : ''}`);
+
   let res = await runPass(job, {
     prompt,
     domSnapshot: context.domSnapshot,

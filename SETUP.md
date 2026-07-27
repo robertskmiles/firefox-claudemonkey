@@ -15,7 +15,17 @@ bash bridge/install.sh   # registers the native-messaging host with Firefox
 
 `bridge/install.sh` resolves your `claude` binary into `bridge/config.json` and writes
 `~/.mozilla/native-messaging-hosts/claudemonkey.bridge.json` (allowlisted to the extension
-id `claudemonkey@local`).
+id `claudemonkey@local`). On macOS the manifest goes to
+`~/Library/Application Support/Mozilla/NativeMessagingHosts/` instead. It needs `node` on
+PATH (host.js is a Node script) and generates `bridge/host-launcher.sh`, which execs that
+exact node against `host.js`; the manifest points at the launcher. This is deliberate:
+`#!/usr/bin/env node` resolves against the PATH of whoever launched Firefox, and a
+GUI-launched Firefox has a minimal one (`/usr/bin:/bin:/usr/sbin:/sbin` on macOS) with no
+Homebrew/nvm/nix node in it — the host would die at startup with exit 127. Both the
+launcher and the manifest hard-code absolute paths, so **re-run the installer if you move
+the checkout or change node** — relevant with nvm, whose node path contains its version.
+If `node` is a shell function, alias or shim the installer can't resolve, point it at the
+real binary with `CLAUDEMONKEY_NODE_BIN=/path/to/node bash bridge/install.sh`.
 
 ### Using a specific Claude account profile
 
@@ -35,12 +45,95 @@ generations under a specific account profile, set `claudeConfigDir` in
 (or your current `CLAUDE_CONFIG_DIR`) is set when you run it. You can also override at
 runtime with the `CLAUDEMONKEY_CLAUDE_CONFIG_DIR` env var.
 
+### `claude` is logged in in my terminal but says "Not logged in" here
+
+Firefox launches the native host from the GUI session, so **nothing your shell profile
+sets is present** — no aliases, no exported variables. If your credential lives in an
+environment variable (e.g. `CLAUDE_CODE_OAUTH_TOKEN`), `claude` is authenticated when you
+run it yourself and unauthenticated when the bridge runs it.
+
+`bridge/install.sh` captures `CLAUDE_CODE_OAUTH_TOKEN` from the environment you run it in
+and records it under `env` in `bridge/config.json`; host.js merges that into the
+environment of the `claude` process. To forward other variables:
+
+```bash
+CLAUDEMONKEY_ENV_PASSTHROUGH="CLAUDE_CODE_OAUTH_TOKEN,HTTPS_PROXY" bash bridge/install.sh
+```
+
+They must be **exported** to be visible to the script. `ANTHROPIC_API_KEY` is never
+forwarded, even if you list it: host.js strips it after applying `env`, so generations
+always bill against the subscription. To reproduce what the bridge sees, strip your
+environment the same way Firefox does:
+
+```bash
+env -i HOME="$HOME" PATH=/usr/bin:/bin:/usr/sbin:/sbin \
+  "$(command -v claude)" -p 'Reply with the single word OK' < /dev/null
+```
+
+### Reading a failed run
+
+Each run narrates where it got to, so a failure tells you which layer broke:
+
+| Last line you see | What it means |
+|---|---|
+| nothing at all | the job never started — the error is in the popup, not the sidebar |
+| `Capturing <domain>…` | DOM/asset/screenshot capture is stuck or threw |
+| (no `Bridge ready`) | the native host isn't answering a ping — host not launching, wrong path in the manifest, or node missing from Firefox's PATH |
+| `Bridge ready — claude: …` | the host is alive; the path and profile shown are what it will actually use |
+| `Sending ~N MB of page context…` | request handed to the host; if nothing follows, the host isn't processing messages (watch that N — a huge page makes a huge message) |
+| `claude produced no output for …` | the host is fine and `claude` itself is wedged |
+
+To check the host by hand, without Firefox:
+
+```bash
+node bridge/test-client.js "hide all images" example.com https://example.com/
+```
+
+### When `claude` gets stuck
+
+If the `claude` process emits nothing for 300s, host.js kills it and reports the stall
+(with any stderr) instead of leaving the sidebar spinning forever. Tune or disable it
+with `stallTimeoutMs` in `bridge/config.json` (0 disables), or `CLAUDEMONKEY_STALL_MS`
+at runtime. Long generations are unaffected — any output resets the timer.
+
 ## Load the extension in Firefox
 
 1. Open `about:debugging#/runtime/this-firefox`.
 2. **Load Temporary Add-on…** → pick `dist/manifest.json`.
-   (The fixed gecko id `claudemonkey@local` must match the native-host allowlist, so always
-   load from `dist/manifest.json`, not a repacked zip with a different id.)
+   (The fixed gecko id `claudemonkey@local` must match the native-host allowlist. Packing
+   `dist/` preserves that id — see below — but don't hand-edit it.)
+
+Temporary add-ons are dropped when Firefox quits.
+
+## Installing it permanently
+
+```bash
+pnpm run xpi     # build + package -> dist-assets/claudemonkey.xpi
+```
+
+Release and Beta Firefox refuse unsigned extensions unconditionally — no pref or policy
+changes that. Two ways round it:
+
+**Unsigned, in a build that allows it.** Developer Edition and Nightly honor
+`xpinstall.signatures.required` (so does ESR). Set it to `false` in `about:config`, then
+`about:addons` → gear → **Install Add-on From File…** → `dist-assets/claudemonkey.xpi`.
+Note these use a separate profile, so existing userscripts don't come along — export them
+from the dashboard first. Remove the temporary add-on before installing, or two copies of
+`claudemonkey@local` will collide.
+
+**Signed by AMO, for Release Firefox.** Unlisted signing is automated review only and is
+never published to the gallery:
+
+```bash
+npx web-ext sign --source-dir=dist --channel=unlisted \
+  --api-key=<jwt-issuer> --api-secret=<jwt-secret>   # credentials from addons.mozilla.org
+```
+
+AMO rejects a version it has already seen, so `pnpm bumpVersion` before each signed build.
+
+Either way the id stays `claudemonkey@local`, so the native-messaging host keeps working
+and `bridge/install.sh` does not need re-running. After a code change, re-run
+`pnpm run xpi` and reinstall the file over the top.
 
 ## End-to-end test
 
