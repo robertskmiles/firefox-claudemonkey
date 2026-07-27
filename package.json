@@ -8,6 +8,8 @@
     "dev": "gulp dev",
     "build": "cross-env NODE_ENV=production gulp build",
     "build:selfHosted": "cross-env TARGET=selfHosted BETA=1 run-s build",
+    "xpi": "run-s build xpi:zip",
+    "xpi:zip": "node scripts/pack.js",
     "analyze": "cross-env RUN_ENV=analyze run-s build",
     "i18n": "gulp i18n",
     "copyI18n": "gulp copyI18n",

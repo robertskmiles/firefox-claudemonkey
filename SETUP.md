@@ -98,8 +98,40 @@ at runtime. Long generations are unaffected — any output resets the timer.
 
 1. Open `about:debugging#/runtime/this-firefox`.
 2. **Load Temporary Add-on…** → pick `dist/manifest.json`.
-   (The fixed gecko id `claudemonkey@local` must match the native-host allowlist, so always
-   load from `dist/manifest.json`, not a repacked zip with a different id.)
+   (The fixed gecko id `claudemonkey@local` must match the native-host allowlist. Packing
+   `dist/` preserves that id — see below — but don't hand-edit it.)
+
+Temporary add-ons are dropped when Firefox quits.
+
+## Installing it permanently
+
+```bash
+pnpm run xpi     # build + package -> dist-assets/claudemonkey.xpi
+```
+
+Release and Beta Firefox refuse unsigned extensions unconditionally — no pref or policy
+changes that. Two ways round it:
+
+**Unsigned, in a build that allows it.** Developer Edition and Nightly honor
+`xpinstall.signatures.required` (so does ESR). Set it to `false` in `about:config`, then
+`about:addons` → gear → **Install Add-on From File…** → `dist-assets/claudemonkey.xpi`.
+Note these use a separate profile, so existing userscripts don't come along — export them
+from the dashboard first. Remove the temporary add-on before installing, or two copies of
+`claudemonkey@local` will collide.
+
+**Signed by AMO, for Release Firefox.** Unlisted signing is automated review only and is
+never published to the gallery:
+
+```bash
+npx web-ext sign --source-dir=dist --channel=unlisted \
+  --api-key=<jwt-issuer> --api-secret=<jwt-secret>   # credentials from addons.mozilla.org
+```
+
+AMO rejects a version it has already seen, so `pnpm bumpVersion` before each signed build.
+
+Either way the id stays `claudemonkey@local`, so the native-messaging host keeps working
+and `bridge/install.sh` does not need re-running. After a code change, re-run
+`pnpm run xpi` and reinstall the file over the top.
 
 ## End-to-end test
 
