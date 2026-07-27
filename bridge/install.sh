@@ -70,7 +70,9 @@ fi
 echo "Using node: $NODE_BIN"
 
 # 3. Write config.json consumed by host.js. Generated with node so values with quotes,
-# spaces or backslashes are escaped correctly.
+# spaces or backslashes are escaped correctly. It may hold a credential (the captured
+# env vars), so it is created 0600 and re-chmodded on every run in case it already
+# existed with looser permissions.
 CM_BIN="$CLAUDE_BIN" CM_CFG="$CLAUDE_CONFIG_DIR_VAL" CM_PASS="$PASSTHROUGH" "$NODE_BIN" -e '
   const out = { claudeBin: process.env.CM_BIN };
   if (process.env.CM_CFG) out.claudeConfigDir = process.env.CM_CFG;
@@ -81,11 +83,12 @@ CM_BIN="$CLAUDE_BIN" CM_CFG="$CLAUDE_CONFIG_DIR_VAL" CM_PASS="$PASSTHROUGH" "$NO
   }
   const names = Object.keys(env);
   if (names.length) out.env = env;
-  require("fs").writeFileSync(process.argv[1], JSON.stringify(out, null, 2) + "\n");
+  require("fs").writeFileSync(process.argv[1], JSON.stringify(out, null, 2) + "\n", { mode: 0o600 });
   console.log(names.length
     ? "Forwarding to claude: " + names.join(", ")
     : "No extra env captured (set CLAUDEMONKEY_ENV_PASSTHROUGH=NAME1,NAME2 to forward more)");
 ' "$DIR/config.json"
+chmod 600 "$DIR/config.json"
 
 # 4. Make host.js executable and generate a launcher that pins the absolute node path.
 # host.js starts with `#!/usr/bin/env node`, which resolves against the PATH of whoever

@@ -227,7 +227,10 @@ function onPortMessage(msg) {
         resolve(msg);
         return;
       }
-      // No loop waiting (shouldn't normally happen): finalize directly.
+      // No loop waiting. If the job already finished — e.g. a pass timeout finalized it
+      // as an error and the wedged host later recovered and sent its `done` — drop the
+      // late message rather than flipping a reported failure into a bogus success.
+      if (job.status !== 'running') return;
       job.status = msg.error ? 'error' : 'done';
       job.error = msg.error || null;
       break;

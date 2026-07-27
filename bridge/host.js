@@ -57,9 +57,9 @@ const CLAUDE_ENV = (config.env && typeof config.env === 'object') ? config.env :
 // keychain prompt, a hung network call). 0 disables the timeout. This measures silence,
 // not total runtime — every streamed event resets it — but a single long turn on a big
 // page can legitimately go minutes without emitting a line, so the default is generous.
-const STALL_TIMEOUT_MS = Number(
-  process.env.CLAUDEMONKEY_STALL_MS || config.stallTimeoutMs || 300000,
-);
+// 0 must be honored as "disabled", so avoid `||` (which would treat it as unset).
+const STALL_RAW = process.env.CLAUDEMONKEY_STALL_MS || config.stallTimeoutMs;
+const STALL_TIMEOUT_MS = STALL_RAW == null || STALL_RAW === '' ? 300000 : Number(STALL_RAW);
 
 // ----------------------------------------------------------------------------
 // Native-messaging framing

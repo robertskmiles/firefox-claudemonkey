@@ -60,6 +60,12 @@ environment of the `claude` process. To forward other variables:
 CLAUDEMONKEY_ENV_PASSTHROUGH="CLAUDE_CODE_OAUTH_TOKEN,HTTPS_PROXY" bash bridge/install.sh
 ```
 
+Note that captured values are stored **in plaintext** in `bridge/config.json`. The
+installer creates it with mode 600 and it is gitignored, but it lives in the checkout —
+so if your checkout is inside a synced folder (Dropbox, iCloud Drive, …), the credential
+syncs along with it. Keep such checkouts out of shared sync folders, or don't pass
+tokens through and rely on `claude login` instead.
+
 They must be **exported** to be visible to the script. `ANTHROPIC_API_KEY` is never
 forwarded, even if you list it: host.js strips it after applying `env`, so generations
 always bill against the subscription. To reproduce what the bridge sees, strip your
