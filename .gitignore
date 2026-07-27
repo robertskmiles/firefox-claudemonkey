@@ -1,4 +1,5 @@
 /dist/
+/web-ext-artifacts/
 node_modules/
 *.log
 .eslintcache
@@ -7,6 +8,7 @@ node_modules/
 /dist-assets/
 .eslintcache
 .env
+.pnpm-store
 
 # ClaudeMonkey: machine-specific bridge config + generated launcher
 bridge/config.json
