@@ -23,7 +23,9 @@ exact node against `host.js`; the manifest points at the launcher. This is delib
 GUI-launched Firefox has a minimal one (`/usr/bin:/bin:/usr/sbin:/sbin` on macOS) with no
 Homebrew/nvm/nix node in it — the host would die at startup with exit 127. Both the
 launcher and the manifest hard-code absolute paths, so **re-run the installer if you move
-the checkout or change node**.
+the checkout or change node** — relevant with nvm, whose node path contains its version.
+If `node` is a shell function, alias or shim the installer can't resolve, point it at the
+real binary with `CLAUDEMONKEY_NODE_BIN=/path/to/node bash bridge/install.sh`.
 
 ### Using a specific Claude account profile
 
@@ -78,7 +80,7 @@ Each run narrates where it got to, so a failure tells you which layer broke:
 | `Capturing <domain>…` | DOM/asset/screenshot capture is stuck or threw |
 | (no `Bridge ready`) | the native host isn't answering a ping — host not launching, wrong path in the manifest, or node missing from Firefox's PATH |
 | `Bridge ready — claude: …` | the host is alive; the path and profile shown are what it will actually use |
-| `Sending N MB of page context…` | request handed to the host; if nothing follows, the host isn't processing messages (watch that N — a huge page makes a huge message) |
+| `Sending ~N MB of page context…` | request handed to the host; if nothing follows, the host isn't processing messages (watch that N — a huge page makes a huge message) |
 | `claude produced no output for …` | the host is fine and `claude` itself is wedged |
 
 To check the host by hand, without Firefox:
@@ -89,7 +91,7 @@ node bridge/test-client.js "hide all images" example.com https://example.com/
 
 ### When `claude` gets stuck
 
-If the `claude` process emits nothing for 120s, host.js kills it and reports the stall
+If the `claude` process emits nothing for 300s, host.js kills it and reports the stall
 (with any stderr) instead of leaving the sidebar spinning forever. Tune or disable it
 with `stallTimeoutMs` in `bridge/config.json` (0 disables), or `CLAUDEMONKEY_STALL_MS`
 at runtime. Long generations are unaffected — any output resets the timer.

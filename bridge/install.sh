@@ -49,13 +49,29 @@ fi
 # against the subscription.
 PASSTHROUGH="${CLAUDEMONKEY_ENV_PASSTHROUGH:-CLAUDE_CODE_OAUTH_TOKEN}"
 
-# 2. Write config.json consumed by host.js. Generated with node (which host.js needs
-# anyway) so values with quotes, spaces or backslashes are escaped correctly.
-if ! command -v node >/dev/null 2>&1; then
-  echo "ERROR: could not find 'node' on PATH; host.js is a Node script and needs it." >&2
+# 2. Resolve node to a real, absolute executable. Everything below depends on it: the
+# config is generated with it, and the launcher in step 4 execs it by absolute path.
+# `command -v` reports shell functions and aliases by name rather than by path, which
+# would yield a nonsense path and a launcher that is silently broken, so verify the
+# result is actually executable instead of trusting it.
+NODE_BIN="${CLAUDEMONKEY_NODE_BIN:-$(command -v node || true)}"
+case "$NODE_BIN" in
+  '') ;;
+  /*) ;;
+  *) NODE_BIN="$(cd "$(dirname "$NODE_BIN")" 2>/dev/null && pwd)/$(basename "$NODE_BIN")" ;;
+esac
+if [ -z "$NODE_BIN" ] || [ ! -x "$NODE_BIN" ]; then
+  echo "ERROR: could not resolve 'node' to an executable file${NODE_BIN:+ (got: '$NODE_BIN')}." >&2
+  echo "host.js is a Node script and needs it. If node is a shell function, alias or" >&2
+  echo "version-manager shim, set CLAUDEMONKEY_NODE_BIN to the real binary and re-run:" >&2
+  echo "  CLAUDEMONKEY_NODE_BIN=/usr/local/bin/node bash bridge/install.sh" >&2
   exit 1
 fi
-CM_BIN="$CLAUDE_BIN" CM_CFG="$CLAUDE_CONFIG_DIR_VAL" CM_PASS="$PASSTHROUGH" node -e '
+echo "Using node: $NODE_BIN"
+
+# 3. Write config.json consumed by host.js. Generated with node so values with quotes,
+# spaces or backslashes are escaped correctly.
+CM_BIN="$CLAUDE_BIN" CM_CFG="$CLAUDE_CONFIG_DIR_VAL" CM_PASS="$PASSTHROUGH" "$NODE_BIN" -e '
   const out = { claudeBin: process.env.CM_BIN };
   if (process.env.CM_CFG) out.claudeConfigDir = process.env.CM_CFG;
   const env = {};
@@ -71,18 +87,15 @@ CM_BIN="$CLAUDE_BIN" CM_CFG="$CLAUDE_CONFIG_DIR_VAL" CM_PASS="$PASSTHROUGH" node
     : "No extra env captured (set CLAUDEMONKEY_ENV_PASSTHROUGH=NAME1,NAME2 to forward more)");
 ' "$DIR/config.json"
 
-# 3. Make host.js executable and generate a launcher that pins an absolute node path.
+# 4. Make host.js executable and generate a launcher that pins the absolute node path.
 # host.js starts with `#!/usr/bin/env node`, which resolves against the PATH of whoever
 # launched Firefox. A GUI-launched Firefox (Dock, Finder, launchd) has a minimal PATH —
 # /usr/bin:/bin:/usr/sbin:/sbin on macOS — so a node from Homebrew, nvm or nix is simply
 # absent and the host dies before it can report anything. The launcher removes the
-# lookup: the manifest points at it, and it execs the exact node that ran this script.
+# lookup: the manifest points at it, and it execs the exact node resolved above.
+# The trade-off is staleness: a version-manager node whose path contains its version
+# (nvm) will break the launcher when you upgrade node. Re-run this script to repair it.
 chmod +x "$HOST_JS"
-NODE_BIN="$(command -v node)"
-case "$NODE_BIN" in
-  /*) ;;
-  *) NODE_BIN="$(cd "$(dirname "$NODE_BIN")" && pwd)/$(basename "$NODE_BIN")" ;;
-esac
 LAUNCHER="$DIR/host-launcher.sh"
 cat > "$LAUNCHER" <<EOF
 #!/bin/sh
@@ -90,9 +103,8 @@ cat > "$LAUNCHER" <<EOF
 exec "$NODE_BIN" "$HOST_JS" "\$@"
 EOF
 chmod +x "$LAUNCHER"
-echo "Using node: $NODE_BIN"
 
-# 4. Install the native-messaging host manifest.
+# 5. Install the native-messaging host manifest.
 case "$(uname -s)" in
   Darwin) TARGET_DIR="$HOME/Library/Application Support/Mozilla/NativeMessagingHosts" ;;
   *)      TARGET_DIR="$HOME/.mozilla/native-messaging-hosts" ;;

@@ -35,12 +35,12 @@ const ASSET_FETCH_TIMEOUT_MS = 8000;           // per-file fetch timeout
 
 // Bridge liveness. postMessage to a native host is fire-and-forget, so without these a
 // host that never answers is indistinguishable from a slow one. The two pass timeouts sit
-// deliberately *above* host.js's own stall watchdog (120s by default) so that when the
+// deliberately *above* host.js's own stall watchdog (300s by default) so that when the
 // host is alive its more specific diagnostic wins; these only catch a host that isn't
-// answering at all.
+// answering at all. Keep that ordering if you tune either side.
 const BRIDGE_PING_TIMEOUT_MS = 8000;    // host must answer a ping this fast
-const PASS_FIRST_EVENT_MS = 150000;     // ...then produce its first event
-const PASS_IDLE_TIMEOUT_MS = 600000;    // ...and keep going at least this often
+const PASS_FIRST_EVENT_MS = 330000;     // ...then produce its first event
+const PASS_IDLE_TIMEOUT_MS = 660000;    // ...and keep going at least this often
 
 let port;
 /** @type {Map<string, object>} requestId -> job */
@@ -457,11 +457,14 @@ function runPass(job, { prompt, domSnapshot, domSnapshotStyled, assets, screensh
       sessionId: sessionId || null,
     };
     // Page context can run to many megabytes; report it, since an oversized message is
-    // one of the few ways postMessage can fail without any error reaching us.
-    const mb = (() => {
-      try { return JSON.stringify(payload).length / 1048576; } catch { return 0; }
-    })();
-    broadcastNote(job, `Sending ${mb.toFixed(1)} MB of page context to Claude…`);
+    // one of the few ways postMessage can fail without any error reaching us. Summing the
+    // big fields rather than stringifying the payload: this is a diagnostic, not worth
+    // serializing several megabytes twice (the port is about to do it for real).
+    const len = s => (typeof s === 'string' ? s.length : 0);
+    const mb = (len(domSnapshot) + len(domSnapshotStyled) + len(screenshot)
+      + len(currentScript) + len(prompt)
+      + (assets || []).reduce((n, a) => n + len(a && a.content), 0)) / 1048576;
+    broadcastNote(job, `Sending ~${mb.toFixed(1)} MB of page context to Claude…`);
     try {
       ensurePort().postMessage(payload);
     } catch (e) {

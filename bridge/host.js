@@ -54,9 +54,11 @@ const CLAUDE_CONFIG_DIR = process.env.CLAUDEMONKEY_CLAUDE_CONFIG_DIR || config.c
 const CLAUDE_ENV = (config.env && typeof config.env === 'object') ? config.env : {};
 // If `claude` emits nothing at all for this long, treat it as wedged rather than leaving
 // the extension waiting forever: something invisible from here is blocking it (a login or
-// keychain prompt, a hung network call). 0 disables the timeout.
+// keychain prompt, a hung network call). 0 disables the timeout. This measures silence,
+// not total runtime — every streamed event resets it — but a single long turn on a big
+// page can legitimately go minutes without emitting a line, so the default is generous.
 const STALL_TIMEOUT_MS = Number(
-  process.env.CLAUDEMONKEY_STALL_MS || config.stallTimeoutMs || 120000,
+  process.env.CLAUDEMONKEY_STALL_MS || config.stallTimeoutMs || 300000,
 );
 
 // ----------------------------------------------------------------------------
